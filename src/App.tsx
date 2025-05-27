@@ -52,21 +52,49 @@ function App() {
             </Tabs>
           </Toolbar>
         </AppBar>
-        <Button>I'm the button</Button>
-        <header className="App-header">
-          {/* <img src={logo} className="App-logo" alt="logo" /> */}
-          <p>
-            Don't Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <div style={{ padding: 20 }}>
+          {tab === 0 ? (
+            <div
+              style={{
+                background: '#000',
+                height: '60vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 16,
+              }}
+            >
+              <Typography
+                variant="h1"
+                sx={{
+                  color: darkTheme.palette.secondary.main,
+                  fontSize: '12rem',
+                  fontWeight: 900,
+                  lineHeight: 1,
+                  userSelect: 'none',
+                }}
+              >
+                O
+              </Typography>
+            </div>
+          ) : (
+            <>
+              <Typography variant="h4" gutterBottom>
+                Соратники
+              </Typography>
+              <Typography variant="body1">
+                Контент для соратників...
+              </Typography>
+              <Button
+                variant="contained"
+                color="secondary"
+                sx={{ marginTop: 2 }}
+              >
+                Дія
+              </Button>
+            </>
+          )}
+        </div>
       </div>
     </ThemeProvider>
   );
