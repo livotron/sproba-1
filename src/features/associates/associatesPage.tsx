@@ -1,40 +1,11 @@
-import { Typography, Button, TextField, InputAdornment, Autocomplete } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { Typography, Button } from "@mui/material";
 import React from "react";
-
-// Example options for autocomplete
-const associates = [
-  { label: "Іван Петренко" },
-  { label: "Олена Ковальчук" },
-  { label: "Сергій Іванов" },
-  { label: "Марія Шевченко" },
-];
+import SearchBar from "./searchBar";
 
 const AssociatesPage = () => (
   <>
     <div style={{ display: "flex", alignItems: "center", marginBottom: 32, width: "100%" }}>
-      <Autocomplete
-      fullWidth
-        options={associates}
-        getOptionLabel={(option) => typeof option === "string" ? option : option.label}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            variant="outlined"
-            placeholder="Пошук"
-            size="small"
-            fullWidth
-            InputProps={{
-              ...params.InputProps,
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon color="action" />
-                </InputAdornment>
-              ),
-            }}
-          />
-        )}
-      />
+      <SearchBar />
     </div>
     <Typography variant="h4" gutterBottom>
       Соратники
