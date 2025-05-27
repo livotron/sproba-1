@@ -4,46 +4,18 @@ import React from "react";
 
 const AssociatesPage = () => (
   <>
-    <div style={{ display: "flex", alignItems: "center", marginBottom: 24 }}>
+    <div style={{ display: "flex", alignItems: "center", marginBottom: 32 }}>
       <TextField
         variant="outlined"
         placeholder="Пошук"
         size="small"
+        fullWidth
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <span
-                style={{
-                  background: "#FFD600",
-                  borderRadius: "50%",
-                  padding: 4,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <SearchIcon sx={{ color: "#000" }} />
-              </span>
+                <SearchIcon sx={{ fontSize: 28 }} />
             </InputAdornment>
           ),
-        }}
-        sx={{
-          width: 300,
-          "& .MuiInputBase-input": {
-            color: "#FFD600",
-            fontWeight: "bold",
-          },
-          "& .MuiOutlinedInput-root": {
-            "& fieldset": {
-              borderColor: "#FFD600",
-            },
-            "&:hover fieldset": {
-              borderColor: "#FFD600",
-            },
-            "&.Mui-focused fieldset": {
-              borderColor: "#FFD600",
-            },
-          },
         }}
       />
     </div>

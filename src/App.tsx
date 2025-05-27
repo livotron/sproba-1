@@ -77,7 +77,7 @@ function MainContent() {
           </Tabs>
         </Toolbar>
       </AppBar>
-      <div style={{ padding: 20 }}>
+      <div style={{ paddingTop: 20 }}>
         <Routes>
           <Route
             path="/"
