@@ -9,6 +9,8 @@ import {
   useNavigate,
 } from "react-router-dom";
 import AssociatesPage from "./features/associates/associatesPage";
+import { Provider } from "react-redux";
+import store from "./store";
 
 const darkTheme = createTheme({
   palette: {
@@ -30,7 +32,7 @@ function MainContent() {
   const [tabModified, setTabModified] = React.useState(false);
 
   const handleTabChange = (_: any, newValue: number) => {
-    setTabModified(true)
+    setTabModified(true);
     setTab(newValue);
     navigate(tabRoutes[newValue]);
   };
@@ -117,11 +119,13 @@ function MainContent() {
 function App() {
   return (
     <ThemeProvider theme={darkTheme}>
-      <BrowserRouter>
-        <div className="App">
-          <MainContent />
-        </div>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <div className="App">
+            <MainContent />
+          </div>
+        </BrowserRouter>
+      </Provider>
     </ThemeProvider>
   );
 }
