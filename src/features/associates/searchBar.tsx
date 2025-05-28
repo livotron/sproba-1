@@ -1,37 +1,90 @@
-import { TextField, InputAdornment, Autocomplete } from "@mui/material";
+import {
+  TextField,
+  InputAdornment,
+  Autocomplete,
+  CircularProgress,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import React from "react";
+import React, { useState } from "react";
+import { searchUsersByName } from "./associatesApi";
 
-const associates = [
-  { label: "Іван Петренко" },
-  { label: "Олена Ковальчук" },
-  { label: "Сергій Іванов" },
-  { label: "Марія Шевченко" },
-];
+interface SearchBarProps {
+  getSearchedUser: (value: string | null) => void;
+}
 
-const SearchBar = () => (
-  <Autocomplete
-    fullWidth
-    options={associates}
-    getOptionLabel={(option) => typeof option === "string" ? option : option.label}
-    renderInput={(params) => (
-      <TextField
-        {...params}
-        variant="outlined"
-        placeholder="Пошук"
-        size="small"
-        fullWidth
-        InputProps={{
-          ...params.InputProps,
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon color="action" />
-            </InputAdornment>
-          ),
-        }}
-      />
-    )}
-  />
-);
+const SearchBar: React.FC<SearchBarProps> = ({ getSearchedUser }) => {
+  const [value, setValue] = useState<string | null>(null);
+  const [inputValue, setInputValue] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [options, setOptions] = useState<{ label: string }[]>([]);
+
+  const handleInputValueChange = (newInputValue: string) => {
+    console.log("handleInputValueChange", newInputValue);
+    const inputValueCapitalized = newInputValue.toUpperCase();
+    if (inputValueCapitalized.length === 0) setOptions([]);
+    if (
+      (inputValueCapitalized.trim().length === 3 && inputValue.length < 3) ||
+      (inputValueCapitalized.trim().length > 3 &&
+        inputValueCapitalized.substring(0, 3) !== inputValue.substring(0, 3))
+    ) {
+      setLoading(true);
+      searchUsersByName(inputValueCapitalized.substring(0, 3)).then(
+        (res): void => {
+          setOptions(res.map((user) => ({ label: user.replaceAll("_", " ") })));
+          setLoading(false);
+          console.log(res);
+        }
+      );
+    }
+    setInputValue(inputValueCapitalized);
+  };
+
+  const handleValueChange = (newValue: string | null) => {
+    console.log("handleValueChange", newValue);
+    setValue(newValue);
+    const underscoredValue = newValue?.replaceAll(" ", "_") || null;
+    getSearchedUser(underscoredValue);
+  };
+
+  return (
+    <Autocomplete
+      fullWidth
+      options={options}
+      getOptionLabel={(option) =>
+        typeof option === "string" ? option : option.label
+      }
+      value={value ? { label: value } : null}
+      onInputChange={(_, newValue) => handleInputValueChange(newValue)}
+      onChange={(event: any, newValue: { label: string } | null) => {
+        handleValueChange(newValue ? newValue.label : null);
+      }}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          variant="outlined"
+          placeholder="Пошук"
+          size="small"
+          fullWidth
+          InputProps={{
+            ...params.InputProps,
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon color="action" />
+              </InputAdornment>
+            ),
+            endAdornment: (
+              <React.Fragment>
+                {loading ? (
+                  <CircularProgress color="inherit" size={20} />
+                ) : null}
+                {params.InputProps.endAdornment}
+              </React.Fragment>
+            ),
+          }}
+        />
+      )}
+    />
+  );
+};
 
 export default SearchBar;
