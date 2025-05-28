@@ -58,6 +58,15 @@ const SearchBar: React.FC<SearchBarProps> = ({ getSearchedUser }) => {
       onChange={(event: any, newValue: { label: string } | null) => {
         handleValueChange(newValue ? newValue.label : null);
       }}
+      noOptionsText={
+        inputValue
+          ? loading
+            ? "Здійснюється пошук..."
+            : inputValue.length < 3
+            ? "Продовжуйте вводити..."
+            : "Не знайдено співпадінь"
+          : "Ведіть повне ім'я"
+      }
       renderInput={(params) => (
         <TextField
           {...params}
