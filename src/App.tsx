@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Typography, Tabs, Tab } from "@mui/material";
+import { AppBar, Toolbar, Tabs, Tab } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import React from "react";
 import {
@@ -13,7 +13,7 @@ import LeadersPage from "./features/leaders/leadersPage";
 import { Provider } from "react-redux";
 import store from "./store";
 
-const darkTheme = createTheme({
+export const darkTheme = createTheme({
   palette: {
     primary: {
       main: "#000000",
