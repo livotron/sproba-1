@@ -1,17 +1,31 @@
 import { Typography, Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import SearchBar from "./searchBar";
+import { useNavigate, useParams } from "react-router-dom";
 
 const AssociatesPage = () => {
-  const [associate, setAssociate] = useState("");
+  const params = useParams<{ associate?: string }>();
+  const navigate = useNavigate();
+  const [associate, setAssociate] = React.useState(params.associate ? params.associate.replaceAll("_", " ") : "");
+
+  // Update URL when associate changes
+  useEffect(() => {
+    if (associate) {
+      navigate(`/соратники/${associate.replaceAll(" ", "_")}`, { replace: true });
+    } else {
+      navigate(`/соратники`, { replace: true });
+    }
+    // eslint-disable-next-line
+  }, [associate]);
 
   const getSearchedUser = (name: string | null) => {
-    if (name) setAssociate(name)
-  }
+    setAssociate(name || "");
+  };
+
   return (
     <>
       <div style={{ display: "flex", alignItems: "center", marginBottom: 32, width: "100%" }}>
-        <SearchBar getSearchedUser={getSearchedUser} />
+        <SearchBar associate={associate} getSearchedUser={getSearchedUser} />
       </div>
       <Typography variant="h4" gutterBottom>
         {associate}

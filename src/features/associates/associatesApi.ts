@@ -5,10 +5,10 @@ export async function searchUsersByName(name: string) {
   return new Promise<string[]>((resolve) => {
     setTimeout(() => {
       resolve([
-        "Іван_Петренко",
-        "Олена_Ковальчук",
-        "Сергій_Іванов",
-        "Марія_Шевченко",
+        "Іван Петренко",
+        "Олена Ковальчук",
+        "Сергій Іванов",
+        "Марія Шевченко",
       ]);
     }, 700); // 700ms delay
   });

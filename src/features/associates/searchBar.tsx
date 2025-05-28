@@ -9,14 +9,14 @@ import React, { useState } from "react";
 import { searchUsersByName } from "./associatesApi";
 
 interface SearchBarProps {
+  associate: string;
   getSearchedUser: (value: string | null) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ getSearchedUser }) => {
-  const [value, setValue] = useState<string | null>(null);
-  const [inputValue, setInputValue] = useState("");
+const SearchBar: React.FC<SearchBarProps> = ({ associate, getSearchedUser }) => {
+  const [inputValue, setInputValue] = useState(associate);
   const [loading, setLoading] = useState(false);
-  const [options, setOptions] = useState<{ label: string }[]>([]);
+  const [options, setOptions] = useState<string[]>([]);
 
   const handleInputValueChange = (newInputValue: string) => {
     console.log("handleInputValueChange", newInputValue);
@@ -30,7 +30,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ getSearchedUser }) => {
       setLoading(true);
       searchUsersByName(inputValueCapitalized.substring(0, 3)).then(
         (res): void => {
-          setOptions(res.map((user) => ({ label: user.replaceAll("_", " ") })));
+          setOptions(res.map((user) => (user)));
           setLoading(false);
           console.log(res);
         }
@@ -39,24 +39,14 @@ const SearchBar: React.FC<SearchBarProps> = ({ getSearchedUser }) => {
     setInputValue(inputValueCapitalized);
   };
 
-  const handleValueChange = (newValue: string | null) => {
-    console.log("handleValueChange", newValue);
-    setValue(newValue);
-    const underscoredValue = newValue?.replaceAll(" ", "_") || null;
-    getSearchedUser(underscoredValue);
-  };
-
   return (
     <Autocomplete
       fullWidth
       options={options}
-      getOptionLabel={(option) =>
-        typeof option === "string" ? option : option.label
-      }
-      value={value ? { label: value } : null}
+      value={inputValue }
       onInputChange={(_, newValue) => handleInputValueChange(newValue)}
-      onChange={(event: any, newValue: { label: string } | null) => {
-        handleValueChange(newValue ? newValue.label : null);
+      onChange={(event: any, newValue:  string | null) => {
+        getSearchedUser(newValue ? newValue : null);
       }}
       noOptionsText={
         inputValue
