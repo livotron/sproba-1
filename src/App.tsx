@@ -9,6 +9,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import AssociatesPage from "./features/associates/associatesPage";
+import LeadersPage from "./features/leaders/leadersPage";
 import { Provider } from "react-redux";
 import store from "./store";
 
@@ -82,34 +83,7 @@ function MainContent() {
       </AppBar>
       <div style={{ paddingTop: 20 }}>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <div
-                style={{
-                  background: "#000",
-                  height: "60vh",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: 16,
-                }}
-              >
-                <Typography
-                  variant="h1"
-                  sx={{
-                    color: darkTheme.palette.secondary.main,
-                    fontSize: "12rem",
-                    fontWeight: 900,
-                    lineHeight: 1,
-                    userSelect: "none",
-                  }}
-                >
-                  O
-                </Typography>
-              </div>
-            }
-          />
+          <Route path="/" element={<LeadersPage />} />
           <Route path="/соратники" element={<AssociatesPage />} />
           <Route path="/соратники/:associate" element={<AssociatesPage />} />
         </Routes>
