@@ -23,7 +23,7 @@ const darkTheme = createTheme({
   },
 });
 
-const tabRoutes = ["/", "/soratnyky"];
+const tabRoutes = ["/", "/соратники"];
 
 function MainContent() {
   const location = useLocation();
@@ -39,8 +39,9 @@ function MainContent() {
 
   let initialTab = 0;
 
-  const idx = tabRoutes.indexOf(location.pathname);
-  if (idx !== -1 && idx !== tab) {
+  const idx = location.pathname === "/" ? 0 : 1;
+  console.log("current location:",location);
+  if (idx !== tab) {
     initialTab = idx;
   }
 
@@ -109,7 +110,8 @@ function MainContent() {
               </div>
             }
           />
-          <Route path="/soratnyky" element={<AssociatesPage />} />
+          <Route path="/соратники" element={<AssociatesPage />} />
+          <Route path="/соратники/:associate" element={<AssociatesPage />} />
         </Routes>
       </div>
     </>
