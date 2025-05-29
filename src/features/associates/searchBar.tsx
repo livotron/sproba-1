@@ -55,13 +55,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
         justifyContent={"space-between"}
         width="100%"
       >
+        <Box display="flex" alignItems="center">
         <span
           style={{
             display: "inline-flex",
             alignItems: "center",
             justifyContent: "center",
-            width: 36,
-            height: 36,
+            width: 28,
+            height: 28,
             borderRadius: "50%",
             background: "#000",
             color: darkTheme.palette.secondary.main,
@@ -74,6 +75,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           <AccountCircleIcon sx={{ fontSize: 28 }} />
         </span>
         <Typography>{associate}</Typography>
+        </Box>
         <Button
           variant="outlined"
           color="primary"
@@ -113,7 +115,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       onBlur={() => {
         setSearchActive(false);
       }}
-      noOptionsText={
+      noOptionsTextjustify-self={
         inputValue
           ? loading
             ? "Здійснюється пошук..."
