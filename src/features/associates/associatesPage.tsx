@@ -42,6 +42,9 @@ const AssociatesPage = () => {
       >
         <SearchBar associate={associate} getSearchedUser={getSearchedUser} />
       </div>
+            <Box display="flex" justifyContent="center">
+        <Typography variant="h6">ЗАРЕЄСТРОВАНО:</Typography>
+      </Box>
       <Box display="flex" alignItems="center">
         <Medal>
           <SandClock />

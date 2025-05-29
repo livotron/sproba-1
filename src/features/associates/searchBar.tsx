@@ -8,11 +8,9 @@ import {
   Button,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import React, { useState } from "react";
 import { searchUsersByName } from "./associatesApi";
 import { darkTheme } from "../../App";
-import HumanPyramid from "./human-pyramid";
 import Medal from "./Medal";
 
 interface SearchBarProps {
@@ -58,26 +56,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
         width="100%"
       >
         <Box display="flex" alignItems="center">
-          {/* <span
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: 28,
-            height: 28,
-            borderRadius: "50%",
-            background: "#000",
-            color: darkTheme.palette.secondary.main,
-            marginRight: 12,
-            borderColor: darkTheme.palette.secondary.main,
-            borderWidth: 2,
-            borderStyle: "solid",
-          }}
-        >
-          <AccountCircleIcon sx={{ fontSize: 28 }} />
-        </span> */}
           <Medal>89</Medal>
-          <Typography style={{ marginLeft: 8 }}>{associate}</Typography>
+          <Typography>{associate}</Typography>
         </Box>
         <Button
           variant="outlined"
