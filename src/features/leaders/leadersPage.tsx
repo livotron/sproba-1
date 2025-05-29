@@ -3,7 +3,13 @@ import React from "react";
 import { darkTheme } from "../../App";
 
 const dummyAssociates = [
-  { name: "ВАСИЛЕНКО ВАСИЛЬ", score: 88 },
+  { name: "ВАСИЛЕНКО ВАСИЛЬ", score: 88,supporters: [
+              { name: "ПЕТРЕНКО ПЕТРО", score: 23 },
+              { name: "ІВАН ІВАНОВИЧ ІВАНОВ", score: 11 },
+              { name: "ВАСИЛЕНКО ВАСИЛЬ", score: 4 },
+              { name: "СВІТЛАНЕНКО СВІТЛАНА", score: 1 },
+              { name: "ПЕТРЕНКО ПЕТРО", score: 1 },
+            ], },
   {
     name: "СВІТЛАНЕНКО СВІТЛАНА",
     score: 66,

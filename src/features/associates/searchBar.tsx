@@ -12,6 +12,8 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import React, { useState } from "react";
 import { searchUsersByName } from "./associatesApi";
 import { darkTheme } from "../../App";
+import HumanPyramid from "./human-pyramid";
+import Medal from "./Medal";
 
 interface SearchBarProps {
   associate: string;
@@ -56,7 +58,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         width="100%"
       >
         <Box display="flex" alignItems="center">
-        <span
+          {/* <span
           style={{
             display: "inline-flex",
             alignItems: "center",
@@ -73,8 +75,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
           }}
         >
           <AccountCircleIcon sx={{ fontSize: 28 }} />
-        </span>
-        <Typography>{associate}</Typography>
+        </span> */}
+          <Medal>89</Medal>
+          <Typography style={{ marginLeft: 8 }}>{associate}</Typography>
         </Box>
         <Button
           variant="outlined"
@@ -90,7 +93,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           style={{
             height: 40,
             minWidth: 40,
-            paddingRight:8,
+            paddingRight: 8,
             paddingLeft: 8,
           }}
         >
@@ -115,7 +118,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       onBlur={() => {
         setSearchActive(false);
       }}
-      noOptionsTextjustify-self={
+      noOptionsText={
         inputValue
           ? loading
             ? "Здійснюється пошук..."

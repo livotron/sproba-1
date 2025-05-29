@@ -12,6 +12,7 @@ import AssociatesPage from "./features/associates/associatesPage";
 import LeadersPage from "./features/leaders/leadersPage";
 import { Provider } from "react-redux";
 import store from "./store";
+import SandClock from "./features/associates/SandClock";
 
 export const darkTheme = createTheme({
   palette: {
@@ -77,6 +78,8 @@ function MainContent() {
           >
             <Tab label="ЛІДЕРИ" />
             <Tab label="СОРАТНИКИ" />
+            <Tab label={"ІСТОРІЯ"} />
+
           </Tabs>
         </Toolbar>
       </AppBar>
