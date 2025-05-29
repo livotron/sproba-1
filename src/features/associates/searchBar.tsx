@@ -3,23 +3,32 @@ import {
   InputAdornment,
   Autocomplete,
   CircularProgress,
+  Box,
+  Typography,
+  Button,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import React, { useState } from "react";
 import { searchUsersByName } from "./associatesApi";
+import { darkTheme } from "../../App";
 
 interface SearchBarProps {
   associate: string;
   getSearchedUser: (value: string | null) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ associate, getSearchedUser }) => {
+const SearchBar: React.FC<SearchBarProps> = ({
+  associate,
+  getSearchedUser,
+}) => {
   const [inputValue, setInputValue] = useState(associate);
   const [loading, setLoading] = useState(false);
   const [options, setOptions] = useState<string[]>([]);
+  const [searchActive, setSearchActive] = useState(false);
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const handleInputValueChange = (newInputValue: string) => {
-    console.log("handleInputValueChange", newInputValue);
     const inputValueCapitalized = newInputValue.toUpperCase();
     if (inputValueCapitalized.length === 0) setOptions([]);
     if (
@@ -30,23 +39,79 @@ const SearchBar: React.FC<SearchBarProps> = ({ associate, getSearchedUser }) => 
       setLoading(true);
       searchUsersByName(inputValueCapitalized.substring(0, 3)).then(
         (res): void => {
-          setOptions(res.map((user) => (user)));
+          setOptions(res.map((user) => user));
           setLoading(false);
-          console.log(res);
         }
       );
     }
     setInputValue(inputValueCapitalized);
   };
 
+  if (!searchActive) {
+    return (
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent={"space-between"}
+        width="100%"
+      >
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 36,
+            height: 36,
+            borderRadius: "50%",
+            background: "#000",
+            color: darkTheme.palette.secondary.main,
+            marginRight: 12,
+            borderColor: darkTheme.palette.secondary.main,
+            borderWidth: 2,
+            borderStyle: "solid",
+          }}
+        >
+          <AccountCircleIcon sx={{ fontSize: 28 }} />
+        </span>
+        <Typography>{associate}</Typography>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => {
+            setInputValue("");
+            setOptions([]);
+            setSearchActive(true);
+            setTimeout(() => {
+              if (inputRef.current) inputRef.current.focus();
+            }, 0);
+          }}
+          style={{
+            height: 40,
+            minWidth: 40,
+            paddingRight:8,
+            paddingLeft: 8,
+          }}
+        >
+          <SearchIcon color="action" />
+        </Button>
+      </Box>
+    );
+  }
+
   return (
     <Autocomplete
       fullWidth
       options={options}
-      value={inputValue }
+      value={inputValue}
       onInputChange={(_, newValue) => handleInputValueChange(newValue)}
-      onChange={(event: any, newValue:  string | null) => {
-        getSearchedUser(newValue ? newValue : null);
+      onChange={(event: any, newValue: string | null) => {
+        if (newValue) {
+          getSearchedUser(newValue);
+          setSearchActive(false);
+        }
+      }}
+      onBlur={() => {
+        setSearchActive(false);
       }}
       noOptionsText={
         inputValue
@@ -60,6 +125,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ associate, getSearchedUser }) => 
       renderInput={(params) => (
         <TextField
           {...params}
+          inputRef={inputRef}
           variant="outlined"
           placeholder="Пошук"
           size="small"

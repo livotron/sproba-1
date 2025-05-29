@@ -41,7 +41,6 @@ function MainContent() {
   let initialTab = 0;
 
   const idx = location.pathname === "/" ? 0 : 1;
-  console.log("current location:",location);
   if (idx !== tab) {
     initialTab = idx;
   }

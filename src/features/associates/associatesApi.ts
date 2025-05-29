@@ -9,6 +9,7 @@ export async function searchUsersByName(name: string) {
         "Олена Ковальчук",
         "Сергій Іванов",
         "Марія Шевченко",
+        "SDF is a user"
       ]);
     }, 700); // 700ms delay
   });
