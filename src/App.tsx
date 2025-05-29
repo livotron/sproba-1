@@ -97,7 +97,7 @@ function App() {
     <ThemeProvider theme={darkTheme}>
       <Provider store={store}>
         <BrowserRouter>
-          <div className="App">
+          <div className="App" style={{ paddingRight: 8, paddingLeft: 8, paddingTop: 8}}>
             <MainContent />
           </div>
         </BrowserRouter>
