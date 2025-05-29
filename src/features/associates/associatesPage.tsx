@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import SandClock from "./SandClock";
 import Medal from "./Medal";
 import LetterBubble from "./LetterBubble";
+import MutualConnection from "./MutualConnection";
 
 const AssociatesPage = () => {
   const params = useParams<{ associate?: string }>();
@@ -154,12 +155,24 @@ const AssociatesPage = () => {
         <Typography>СЕМЕН СЕМЕНОВИЧ</Typography>
       </Box>
       <Box
-        height={200}
+        height={250}
         display="flex"
         alignItems="center"
         justifyContent="center"
       >
         <LetterBubble text="AB" />
+        <MutualConnection />
+        <Box display="flex" flexDirection="column" alignItems="center">
+          <LetterBubble text="K" />
+          <MutualConnection />
+          <LetterBubble text="KR" />
+          <MutualConnection />
+
+          <LetterBubble text="PP" />
+        </Box>
+        <MutualConnection />
+
+        <LetterBubble text="Q" />
       </Box>
     </>
   );
