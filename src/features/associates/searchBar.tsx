@@ -120,7 +120,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
             : inputValue.length < 3
             ? "Продовжуйте вводити..."
             : "Не знайдено співпадінь"
-          : "Ведіть повне ім'я"
+          : "Ведіть ім'я"
       }
       renderInput={(params) => (
         <TextField

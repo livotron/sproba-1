@@ -24,7 +24,7 @@ export const darkTheme = createTheme({
   },
 });
 
-const tabRoutes = ["/", "/соратники"];
+const tabRoutes = ["/", "/associates"];
 
 function MainContent() {
   const location = useLocation();
@@ -83,8 +83,8 @@ function MainContent() {
       <div style={{ paddingTop: 20 }}>
         <Routes>
           <Route path="/" element={<LeadersPage />} />
-          <Route path="/соратники" element={<AssociatesPage />} />
-          <Route path="/соратники/:associate" element={<AssociatesPage />} />
+          <Route path="/associates" element={<AssociatesPage />} />
+          <Route path="/associates/:associate" element={<AssociatesPage />} />
         </Routes>
       </div>
     </>
