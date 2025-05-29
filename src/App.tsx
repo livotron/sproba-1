@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Tabs, Tab } from "@mui/material";
+import { AppBar, Toolbar, Tabs, Tab, Button } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import React from "react";
 import {
@@ -12,7 +12,6 @@ import AssociatesPage from "./features/associates/associatesPage";
 import LeadersPage from "./features/leaders/leadersPage";
 import { Provider } from "react-redux";
 import store from "./store";
-import SandClock from "./features/associates/SandClock";
 
 export const darkTheme = createTheme({
   palette: {
@@ -25,7 +24,7 @@ export const darkTheme = createTheme({
   },
 });
 
-const tabRoutes = ["/", "/associates"];
+const tabRoutes = ["/", "/associates", "/history"];
 
 function MainContent() {
   const location = useLocation();
@@ -41,7 +40,7 @@ function MainContent() {
 
   let initialTab = 0;
 
-  const idx = location.pathname === "/" ? 0 : 1;
+  const idx = location.pathname === "/" ? 0 : location.pathname.indexOf("/history") ? 1 : 2;
   if (idx !== tab) {
     initialTab = idx;
   }
@@ -88,6 +87,8 @@ function MainContent() {
           <Route path="/" element={<LeadersPage />} />
           <Route path="/associates" element={<AssociatesPage />} />
           <Route path="/associates/:associate" element={<AssociatesPage />} />
+          <Route path="/history" element={"HISTORY"} />
+
         </Routes>
       </div>
     </>
