@@ -1,12 +1,10 @@
 import React from "react";
 import { lightenColorLinear } from "../../utils/colors";
+import { userColor } from "../../App";
 
 interface LetterBubbleProps {
   text: string;
-}
-
-const userColor = "#3498db"; // Replace with your desired color
-const LetterBubble: React.FC<LetterBubbleProps> = ({ text }) => (
+}const LetterBubble: React.FC<LetterBubbleProps> = ({ text }) => (
   <span
     style={{
       display: "inline-flex",

@@ -14,15 +14,15 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { getContrastYIQ } from "./utils/colors";
 
-const randomColor = "#FFD600"
+export const userColor = "#FFD600"
 
 export const darkTheme = createTheme({
   palette: {
     primary: {
-      main: getContrastYIQ(randomColor),
+      main: getContrastYIQ(userColor),
     },
     secondary: {
-      main: randomColor,
+      main: userColor,
     },
   },
 });
@@ -50,7 +50,7 @@ function MainContent() {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <Tabs
             value={tabModified ? tab : initialTab}
@@ -103,7 +103,7 @@ function App() {
     <ThemeProvider theme={darkTheme}>
       <Provider store={store}>
         <BrowserRouter>
-          <div className="App" style={{ paddingRight: 8, paddingLeft: 8, paddingTop: 8}}>
+          <div className="App" style={{ paddingRight: 8, paddingLeft: 8, paddingTop: 56}}>
             <MainContent />
           </div>
         </BrowserRouter>
