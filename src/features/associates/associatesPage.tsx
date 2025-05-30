@@ -31,7 +31,8 @@ const AssociatesPage = () => {
   };
 
   return (
-    <>
+    <Box display={"flex"} flexDirection="column" justifyContent={"space-between"} height={"100%"}>
+    <Box>
       <div
         style={{
           display: "flex",
@@ -157,6 +158,7 @@ const AssociatesPage = () => {
         </Medal>
         <Typography>СЕМЕН СЕМЕНОВИЧ</Typography>
       </Box>
+      </Box>
       <Box
         height={250}
         display="flex"
@@ -177,7 +179,7 @@ const AssociatesPage = () => {
 
         <LetterBubble text="Q" />
       </Box>
-    </>
+    </Box>
   );
 };
 

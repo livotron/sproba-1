@@ -10,8 +10,6 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import React, { useState } from "react";
 import { searchUsersByName } from "./associatesApi";
-import { darkTheme } from "../../App";
-import Medal from "./Medal";
 
 interface SearchBarProps {
   associate: string;
@@ -52,13 +50,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
       <Box
         display="flex"
         alignItems="center"
-        justifyContent={"space-between"}
+        justifyContent="start"
         width="100%"
       >
-        <Box display="flex" alignItems="center">
-          <Medal>89</Medal>
-          <Typography>{associate}</Typography>
-        </Box>
         <Button
           variant="outlined"
           color="primary"
@@ -75,10 +69,12 @@ const SearchBar: React.FC<SearchBarProps> = ({
             minWidth: 40,
             paddingRight: 8,
             paddingLeft: 8,
+            marginRight: 8,
           }}
         >
           <SearchIcon color="action" />
         </Button>
+        <Typography>{associate}</Typography>
       </Box>
     );
   }
@@ -118,7 +114,16 @@ const SearchBar: React.FC<SearchBarProps> = ({
           InputProps={{
             ...params.InputProps,
             startAdornment: (
-              <InputAdornment position="start">
+              <InputAdornment
+                        style={{ paddingLeft: 4}}
+                onClick={() => {
+                  if (inputRef.current) {
+                    inputRef.current.value = "";
+                    inputRef.current.blur();
+                  }
+                }}
+                position="start"
+              >
                 <SearchIcon color="action" />
               </InputAdornment>
             ),

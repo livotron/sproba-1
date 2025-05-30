@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Tabs, Tab, Button } from "@mui/material";
+import { AppBar, Toolbar, Tabs, Tab } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import React from "react";
 import {
@@ -14,7 +14,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { getContrastYIQ } from "./utils/colors";
 
-export const userColor = "#FFD600"
+export const userColor = "#FFA500"
 
 export const darkTheme = createTheme({
   palette: {
@@ -51,7 +51,7 @@ function MainContent() {
   return (
     <>
       <AppBar position="fixed">
-        <Toolbar>
+        <Toolbar style={{paddingRight: 8, paddingLeft: 8}}>
           <Tabs
             value={tabModified ? tab : initialTab}
             onChange={handleTabChange}
@@ -85,7 +85,6 @@ function MainContent() {
           </Tabs>
         </Toolbar>
       </AppBar>
-      <div style={{ paddingTop: 20 }}>
         <Routes>
           <Route path="/" element={<LeadersPage />} />
           <Route path="/associates" element={<AssociatesPage />} />
@@ -93,7 +92,6 @@ function MainContent() {
           <Route path="/history" element={"HISTORY"} />
 
         </Routes>
-      </div>
     </>
   );
 }
@@ -103,7 +101,7 @@ function App() {
     <ThemeProvider theme={darkTheme}>
       <Provider store={store}>
         <BrowserRouter>
-          <div className="App" style={{ paddingRight: 8, paddingLeft: 8, paddingTop: 56}}>
+          <div className="App" style={{ paddingRight: 8, paddingLeft: 8, paddingTop: 72, height: "100vh", boxSizing: "border-box" }}>
             <MainContent />
           </div>
         </BrowserRouter>
