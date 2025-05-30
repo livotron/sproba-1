@@ -16,7 +16,7 @@ import { getContrastYIQ } from "./utils/colors";
 
 export const userColor = "#FFA500"
 
-export const darkTheme = createTheme({
+export const mainTheme = createTheme({
   palette: {
     primary: {
       main: getContrastYIQ(userColor),
@@ -60,7 +60,7 @@ function MainContent() {
             variant="fullWidth"
             TabIndicatorProps={{
               style: {
-                backgroundColor: darkTheme.palette.secondary.main,
+                backgroundColor: mainTheme.palette.secondary.main,
                 height: 4,
               },
             }}
@@ -74,7 +74,7 @@ function MainContent() {
                 minWidth: 120,
               },
               ".Mui-selected": {
-                color: `${darkTheme.palette.secondary.main} !important`,
+                color: `${mainTheme.palette.secondary.main} !important`,
               },
             }}
           >
@@ -98,7 +98,7 @@ function MainContent() {
 
 function App() {
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={mainTheme}>
       <Provider store={store}>
         <BrowserRouter>
           <div className="App" style={{ paddingRight: 8, paddingLeft: 8, paddingTop: 72, height: "100vh", boxSizing: "border-box" }}>

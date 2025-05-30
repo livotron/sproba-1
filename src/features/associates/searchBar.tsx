@@ -74,7 +74,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         >
           <SearchIcon color="action" style={{position: "absolute"}} />
         </Button>
-        <Typography>{associate}</Typography>
+        <Typography variant="h6">{associate}</Typography>
       </Box>
     );
   }

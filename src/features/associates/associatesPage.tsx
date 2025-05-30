@@ -2,8 +2,6 @@ import { Typography, Box, Button } from "@mui/material";
 import React, { useEffect } from "react";
 import SearchBar from "./searchBar";
 import { useNavigate, useParams } from "react-router-dom";
-import SandClock from "./SandClock";
-import Medal from "./Medal";
 import LetterBubble from "./LetterBubble";
 import MutualConnection from "./MutualConnection";
 import CakeIcon from "@mui/icons-material/Cake";
@@ -12,7 +10,7 @@ import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
-import { darkTheme } from "../../App";
+import { mainTheme } from "../../App";
 const AssociatesPage = () => {
   const params = useParams<{ associate?: string }>();
   const navigate = useNavigate();
@@ -38,6 +36,7 @@ const AssociatesPage = () => {
 
   return (
     <>
+      <Typography variant="h6">НАЗВАВСЯ:</Typography>
       <div
         style={{
           display: "flex",
@@ -48,36 +47,32 @@ const AssociatesPage = () => {
       >
         <SearchBar associate={associate} getSearchedUser={getSearchedUser} />
       </div>
-      <Box display="flex" justifyContent="center">
-        <Typography variant="h6">ЗАРЕЄСТРОВАНО:</Typography>
-      </Box>
+      <Typography variant="h6">ДОЄДНАВСЯ:</Typography>
       <Box display="flex" alignItems="center">
         <Button
           color="primary"
           style={{
-            background: darkTheme.palette.secondary.main,
-            color: darkTheme.palette.primary.main,
+            background: mainTheme.palette.secondary.main,
+            color: mainTheme.palette.primary.main,
             marginRight: 8,
             minWidth: 40,
-            minHeight: 40
+            minHeight: 40,
           }}
         >
           <CakeIcon />
         </Button>
-        <Typography>02.04.2025</Typography>
+        <Typography variant="h6">02.04.2025</Typography>
       </Box>
-      <Box display="flex" justifyContent="center">
-        <Typography variant="h6">ПІДТРИМАНО:</Typography>
-      </Box>
+      <Typography variant="h6">ПІДТРИМАВ:</Typography>
       <Box display="flex" alignItems="center">
         <Button
           color="primary"
           style={{
-            background: darkTheme.palette.secondary.main,
-            color: darkTheme.palette.primary.main,
+            background: mainTheme.palette.secondary.main,
+            color: mainTheme.palette.primary.main,
             marginRight: 8,
             minWidth: 40,
-            maxHeight: 40
+            maxHeight: 40,
           }}
         >
           <span style={{ position: "relative", left: "-2px", top: "2px" }}>
@@ -86,15 +81,13 @@ const AssociatesPage = () => {
         </Button>
         <Typography>СЕМЕН СЕМЕНОВИЧ</Typography>
       </Box>
-      <Box display="flex" justifyContent="center">
-        <Typography variant="h6">ЗАСВІДЧЕНО:</Typography>
-      </Box>
+      <Typography variant="h6">ЗАСВІДЧИВ:</Typography>
       <Box display="flex" alignItems="center" marginBottom={1}>
         <Button
           title="Arrow Up"
           style={{
-            background: darkTheme.palette.secondary.main,
-            color: darkTheme.palette.primary.main,
+            background: mainTheme.palette.secondary.main,
+            color: mainTheme.palette.primary.main,
             marginRight: 8,
             minWidth: 40,
           }}
@@ -107,8 +100,8 @@ const AssociatesPage = () => {
         <Button
           title="Arrow Right"
           style={{
-            background: darkTheme.palette.secondary.main,
-            color: darkTheme.palette.primary.main,
+            background: mainTheme.palette.secondary.main,
+            color: mainTheme.palette.primary.main,
             marginRight: 8,
             minWidth: 40,
           }}
@@ -121,8 +114,8 @@ const AssociatesPage = () => {
         <Button
           title="Arrow Down"
           style={{
-            background: darkTheme.palette.secondary.main,
-            color: darkTheme.palette.primary.main,
+            background: mainTheme.palette.secondary.main,
+            color: mainTheme.palette.primary.main,
             marginRight: 8,
             minWidth: 40,
           }}
@@ -135,8 +128,8 @@ const AssociatesPage = () => {
         <Button
           title="Arrow Left"
           style={{
-            background: darkTheme.palette.secondary.main,
-            color: darkTheme.palette.primary.main,
+            background: mainTheme.palette.secondary.main,
+            color: mainTheme.palette.primary.main,
             marginRight: 8,
             minWidth: 40,
           }}

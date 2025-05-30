@@ -1,5 +1,5 @@
 import React from "react";
-import { darkTheme } from "../../App";
+import { mainTheme } from "../../App";
 
 interface MedalProps {
   children?: React.ReactNode;
@@ -16,8 +16,8 @@ const Medal: React.FC<MedalProps> = ({ children, title, style }) => (
       width: 40,
       height: 40,
       borderRadius: 4,
-      background: darkTheme.palette.secondary.main,
-      color: darkTheme.palette.primary.main,
+      background: mainTheme.palette.secondary.main,
+      color: mainTheme.palette.primary.main,
       marginRight: 8,
       // border: "2px solid #FFD600",
       fontSize: 22,

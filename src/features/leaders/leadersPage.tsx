@@ -8,8 +8,7 @@ import {
 import React from "react";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 
-import { darkTheme, userColor } from "../../App";
-import { getContrastYIQ } from "../../utils/colors";
+import { mainTheme } from "../../App";
 
 const dummyAssociates = [
   {
@@ -112,75 +111,8 @@ dummyAssociates.forEach((user) => {
   associatesPusher(user, -1);
 });
 console.log("dummyAssociatesUnified", dummyAssociatesUnified);
-const supportersList = (user: User, nestedLevel: number) => {
-  const newNestedLevel = nestedLevel + 1;
-  return (
-    user.supporters &&
-    user.supporters.map((supporter) => (
-      <ListItem
-        key={user.name}
-        style={{
-          padding: 0,
-          marginLeft: 8,
-          alignItems: "center",
-          width: "100%",
-        }}
-      >
-        <ListItemText
-          primary={
-            <span
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                width: "100%",
-              }}
-            >
-              {/* <span
-                className="bullet-number"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 32,
-                  height: 32,
-                  borderRadius: supporter.supporters ? "0" : "50%",
-                  background: darkTheme.palette.primary.main,
-                  color: darkTheme.palette.secondary.main,
-                  fontSize: 18,
-                  marginRight: 8,
-                  marginTop: 4,
-                  marginBottom: 4,
-                  boxSizing: "border-box",
-                }}
-              >
-                {supporter.score}
-              </span> */}
-              <span>
-                <Button
-                  style={{
-                    background: darkTheme.palette.primary.main,
-                    color: darkTheme.palette.secondary.main,
-                  }}
-                >
-                  <KeyboardDoubleArrowDownIcon />
-                </Button>
-                <Typography>{supporter.name}</Typography>
-              </span>
-              <Typography>{supporter.score}</Typography>
-            </span>
-          }
-        />
-        <List style={{ padding: 0 }}>
-          {supportersList(supporter, newNestedLevel)}
-        </List>
-      </ListItem>
-    ))
-  );
-};
 
 const LeadersPage = () => {
-  const nestedLevel = 0;
   return (
     <List style={{ padding: 0 }}>
       {dummyAssociatesUnified.map((user, idx) => (
@@ -213,8 +145,8 @@ const LeadersPage = () => {
                 >
                   <Button
                     style={{
-                      background: userColor,
-                      color: getContrastYIQ(userColor),
+                      background: mainTheme.palette.secondary.main,
+                      color: mainTheme.palette.primary.main,
                       marginRight: 8,
                       minWidth: 0
                     }}
