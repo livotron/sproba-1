@@ -1,4 +1,5 @@
 import React from "react";
+import { darkTheme } from "../../App";
 
 interface MedalProps {
   children?: React.ReactNode;
@@ -12,14 +13,15 @@ const Medal: React.FC<MedalProps> = ({ children, title, style }) => (
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
-      width: 36,
-      height: 36,
-      borderRadius: "50%",
-      background: "#000",
-      color: "#FFD600",
+      width: 40,
+      height: 40,
+      borderRadius: 4,
+      background: darkTheme.palette.secondary.main,
+      color: darkTheme.palette.primary.main,
       marginRight: 8,
-      border: "2px solid #FFD600",
+      // border: "2px solid #FFD600",
       fontSize: 22,
+      fontWeight: 700,
       ...style,
     }}
     title={title}

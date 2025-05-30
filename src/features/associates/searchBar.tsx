@@ -72,7 +72,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
             marginRight: 8,
           }}
         >
-          <SearchIcon color="action" />
+          <SearchIcon color="action" style={{position: "absolute"}} />
         </Button>
         <Typography>{associate}</Typography>
       </Box>

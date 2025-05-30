@@ -1,4 +1,4 @@
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Button } from "@mui/material";
 import React, { useEffect } from "react";
 import SearchBar from "./searchBar";
 import { useNavigate, useParams } from "react-router-dom";
@@ -6,7 +6,13 @@ import SandClock from "./SandClock";
 import Medal from "./Medal";
 import LetterBubble from "./LetterBubble";
 import MutualConnection from "./MutualConnection";
-
+import CakeIcon from "@mui/icons-material/Cake";
+import PanToolIcon from "@mui/icons-material/PanTool";
+import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
+import { darkTheme } from "../../App";
 const AssociatesPage = () => {
   const params = useParams<{ associate?: string }>();
   const navigate = useNavigate();
@@ -31,8 +37,7 @@ const AssociatesPage = () => {
   };
 
   return (
-    <Box display={"flex"} flexDirection="column" justifyContent={"space-between"} height={"100%"}>
-    <Box>
+    <>
       <div
         style={{
           display: "flex",
@@ -43,122 +48,104 @@ const AssociatesPage = () => {
       >
         <SearchBar associate={associate} getSearchedUser={getSearchedUser} />
       </div>
-            <Box display="flex" justifyContent="center">
+      <Box display="flex" justifyContent="center">
         <Typography variant="h6">ЗАРЕЄСТРОВАНО:</Typography>
       </Box>
       <Box display="flex" alignItems="center">
-        <Medal>
-          <SandClock />
-        </Medal>
+        <Button
+          color="primary"
+          style={{
+            background: darkTheme.palette.secondary.main,
+            color: darkTheme.palette.primary.main,
+            marginRight: 8,
+            minWidth: 40,
+            minHeight: 40
+          }}
+        >
+          <CakeIcon />
+        </Button>
         <Typography>02.04.2025</Typography>
       </Box>
       <Box display="flex" justifyContent="center">
-        <Typography variant="h6">ПІДТРИМУЄ:</Typography>
+        <Typography variant="h6">ПІДТРИМАНО:</Typography>
       </Box>
       <Box display="flex" alignItems="center">
-        <Medal>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            style={{ position: "relative", top: "-1px" }}
-          >
-            <polygon
-              points="12,4 20,20 4,20"
-              fill="#FFD600"
-              stroke="#FFD600"
-              strokeWidth="1.5"
-            />
-          </svg>
-        </Medal>
+        <Button
+          color="primary"
+          style={{
+            background: darkTheme.palette.secondary.main,
+            color: darkTheme.palette.primary.main,
+            marginRight: 8,
+            minWidth: 40,
+            maxHeight: 40
+          }}
+        >
+          <span style={{ position: "relative", left: "-2px", top: "2px" }}>
+            <PanToolIcon fontSize="medium" />
+          </span>
+        </Button>
         <Typography>СЕМЕН СЕМЕНОВИЧ</Typography>
       </Box>
       <Box display="flex" justifyContent="center">
-        <Typography variant="h6">ЗАСВІДЧУЄ:</Typography>
+        <Typography variant="h6">ЗАСВІДЧЕНО:</Typography>
       </Box>
       <Box display="flex" alignItems="center" marginBottom={1}>
-        <Medal title="Arrow Up">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M12 4v16M12 4l-6 6M12 4l6 6"
-              stroke="#FFD600"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </Medal>
-        <Typography>СЕМЕН СЕМЕНОВИЧ</Typography>
+        <Button
+          title="Arrow Up"
+          style={{
+            background: darkTheme.palette.secondary.main,
+            color: darkTheme.palette.primary.main,
+            marginRight: 8,
+            minWidth: 40,
+          }}
+        >
+          <KeyboardDoubleArrowUpIcon />
+        </Button>
+        <Typography>VLAD СЕМЕНОВИЧ</Typography>
       </Box>
       <Box display="flex" alignItems="center" marginBottom={1}>
-        <Medal title="Arrow Right">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M20 12H4M20 12l-6-6M20 12l-6 6"
-              stroke="#FFD600"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </Medal>
-        <Typography>СЕМЕН СЕМЕНОВИЧ</Typography>
+        <Button
+          title="Arrow Right"
+          style={{
+            background: darkTheme.palette.secondary.main,
+            color: darkTheme.palette.primary.main,
+            marginRight: 8,
+            minWidth: 40,
+          }}
+        >
+          <KeyboardDoubleArrowRightIcon />
+        </Button>
+        <Typography>GOSHA СЕМЕНОВИЧ</Typography>
       </Box>
       <Box display="flex" alignItems="center" marginBottom={1}>
-        <Medal title="Arrow Down">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M12 20V4M12 20l-6-6M12 20l6-6"
-              stroke="#FFD600"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </Medal>
-        <Typography>СЕМЕН СЕМЕНОВИЧ</Typography>
+        <Button
+          title="Arrow Down"
+          style={{
+            background: darkTheme.palette.secondary.main,
+            color: darkTheme.palette.primary.main,
+            marginRight: 8,
+            minWidth: 40,
+          }}
+        >
+          <KeyboardDoubleArrowDownIcon />
+        </Button>
+        <Typography>VIRTOR СЕМЕНОВИЧ</Typography>
       </Box>
       <Box display="flex" alignItems="center" marginBottom={1}>
-        <Medal title="Arrow Left">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M4 12h16M4 12l6-6M4 12l6 6"
-              stroke="#FFD600"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </Medal>
-        <Typography>СЕМЕН СЕМЕНОВИЧ</Typography>
+        <Button
+          title="Arrow Left"
+          style={{
+            background: darkTheme.palette.secondary.main,
+            color: darkTheme.palette.primary.main,
+            marginRight: 8,
+            minWidth: 40,
+          }}
+        >
+          <KeyboardDoubleArrowLeftIcon />
+        </Button>
+        <Typography>OLEG СЕМЕНОВИЧ</Typography>
       </Box>
-      </Box>
+
       <Box
         height={250}
         display="flex"
@@ -171,7 +158,7 @@ const AssociatesPage = () => {
           <LetterBubble text="K" />
           <MutualConnection />
           <LetterBubble text="KR" />
-          <MutualConnection style={{opacity: 0}}/>
+          <MutualConnection style={{ opacity: 0 }} />
 
           <LetterBubble text="PP" />
         </Box>
@@ -179,7 +166,7 @@ const AssociatesPage = () => {
 
         <LetterBubble text="Q" />
       </Box>
-    </Box>
+    </>
   );
 };
 
