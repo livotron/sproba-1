@@ -169,7 +169,7 @@ const AssociatesPage = () => {
           <LetterBubble text="K" />
           <MutualConnection />
           <LetterBubble text="KR" />
-          <MutualConnection />
+          <MutualConnection style={{opacity: 0}}/>
 
           <LetterBubble text="PP" />
         </Box>

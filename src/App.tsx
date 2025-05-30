@@ -12,14 +12,17 @@ import AssociatesPage from "./features/associates/associatesPage";
 import LeadersPage from "./features/leaders/leadersPage";
 import { Provider } from "react-redux";
 import store from "./store";
+import { getContrastYIQ } from "./utils/colors";
+
+const randomColor = "#FFD600"
 
 export const darkTheme = createTheme({
   palette: {
     primary: {
-      main: "#000000",
+      main: getContrastYIQ(randomColor),
     },
     secondary: {
-      main: "#FFD600",
+      main: randomColor,
     },
   },
 });
@@ -67,7 +70,7 @@ function MainContent() {
                 fontWeight: "bold",
                 fontSize: "1.1rem",
                 letterSpacing: 1,
-                color: "#fff",
+                color: "#808080",
                 minWidth: 120,
               },
               ".Mui-selected": {

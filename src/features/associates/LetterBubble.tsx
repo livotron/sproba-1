@@ -1,9 +1,11 @@
 import React from "react";
+import { lightenColorLinear } from "../../utils/colors";
 
 interface LetterBubbleProps {
   text: string;
 }
 
+const userColor = "#3498db"; // Replace with your desired color
 const LetterBubble: React.FC<LetterBubbleProps> = ({ text }) => (
   <span
     style={{
@@ -13,7 +15,10 @@ const LetterBubble: React.FC<LetterBubbleProps> = ({ text }) => (
       width: 64,
       height: 64,
       borderRadius: "50%",
-      background: "#FFD600",
+      background: `linear-gradient(${lightenColorLinear(
+        userColor,
+        60
+      )},${userColor})`,
       color: "#000",
       fontWeight: 700,
       fontSize: 36,
