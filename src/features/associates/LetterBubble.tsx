@@ -4,7 +4,8 @@ import { userColor } from "../../App";
 
 interface LetterBubbleProps {
   text: string;
-}const LetterBubble: React.FC<LetterBubbleProps> = ({ text }) => (
+}
+const LetterBubble: React.FC<LetterBubbleProps> = ({ text }) => (
   <span
     style={{
       display: "inline-flex",
