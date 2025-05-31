@@ -1,6 +1,7 @@
 import React from "react";
 import { lightenColorLinear } from "../../utils/colors";
 import { userColor } from "../../App";
+import { Typography } from "@mui/material";
 
 interface LetterBubbleProps {
   text: string;
@@ -19,14 +20,21 @@ const LetterBubble: React.FC<LetterBubbleProps> = ({ text }) => (
         60
       )},${userColor})`,
       color: "#000",
-      fontWeight: 700,
-      fontSize: 36,
-      letterSpacing: 2,
-      textTransform: "uppercase",
+      position: "relative",
     }}
     title="Person Initial"
   >
-    {text}
+    <Typography variant="h4">{text}</Typography>
+    <Typography
+      style={{
+        position: "absolute",
+        top: 44,
+        left: 52,
+      }}
+      variant="h6"
+    >
+      23
+    </Typography>
   </span>
 );
 

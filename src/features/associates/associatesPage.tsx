@@ -34,7 +34,7 @@ const AssociatesPage = () => {
 
   return (
     <>
-      <Typography variant="h6">НАЗВАВСЯ:</Typography>
+      <Typography variant="h6">ПРЕДСТАВИВСЯ:</Typography>
       <div
         style={{
           display: "flex",

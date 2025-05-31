@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { mainTheme } from "../../App";
 import { KeyboardDoubleArrowRight } from "@mui/icons-material";
 import FlagIcon from "@mui/icons-material/Flag";
+import CloseIcon from '@mui/icons-material/Close';
 
 const dummyAssociates = [
   {
@@ -217,7 +218,7 @@ const RecursiveListItem: React.FC<{
                   }}
                 >
                   {user.score === 1 ? (
-                    <KeyboardDoubleArrowRight />
+                    <CloseIcon />
                   ) : selection.some((s) => s === user.name) ? (
                     <KeyboardDoubleArrowDownIcon
                       style={{ transform: "rotate(180deg)" }}
