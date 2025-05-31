@@ -101,7 +101,7 @@ function App() {
     <ThemeProvider theme={mainTheme}>
       <Provider store={store}>
         <BrowserRouter>
-          <div className="App" style={{ paddingRight: 8, paddingLeft: 8, paddingTop: 72, height: "100vh", boxSizing: "border-box" }}>
+          <div className="App" style={{ paddingRight: 8, paddingLeft: 8, paddingTop: 56, height: "100vh", boxSizing: "border-box" }}>
             <MainContent />
           </div>
         </BrowserRouter>

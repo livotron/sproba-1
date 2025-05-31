@@ -9,85 +9,86 @@ import React from "react";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 
 import { mainTheme } from "../../App";
+import { KeyboardDoubleArrowRight } from "@mui/icons-material";
 
 const dummyAssociates = [
   {
     name: "ФІВАПФІВАПФІВАПФІВАПФІВАП",
     score: 88,
     supporters: [
-      { name: "2ПЕТРЕНКО ПЕТРО", score: 23 },
-      { name: "2ІВАН ІВАНОВИЧ ІВАНОВ", score: 11 },
-      { name: "2ВАСИЛЕНКО ВАСИЛЬ", score: 4 },
-      { name: "2СВІТЛАНЕНКО СВІТЛАНА", score: 1 },
-      { name: "2ПЕТРЕНКО ПЕТРО", score: 1 },
+      { name: "2ПЕТРЕНDКО ПЕТsdfРО", score: 23 },
+      { name: "2ІВАН ІВDАНОВИЧfsd ІВАНОВ", score: 11 },
+      { name: "2ВАСИЛЕDDНКО ВАСИsdfЛЬ", score: 4 },
+      { name: "2СВІТЛDDАНsdЕНКО СВsdfІТЛАНА", score: 1 },
+      { name: "2ПЕТРЕDDНКО ПЕfТРО", score: 1 },
     ],
   },
   {
-    name: "1СВІТЛАНЕНКО СВІТЛАНА",
+    name: "1СВІТЛАНЕНКО СВІТasЛАНА",
     score: 66,
     supporters: [
-      { name: "2ПЕТРЕНКО ПЕТРО", score: 23 },
-      { name: "2ІВАН ІВАНОВИЧ ІВАНОВ", score: 11 },
-      { name: "2ВАСИЛЕНКО ВАСИЛЬ", score: 4 },
-      { name: "2СВІТЛАНЕНКО СВІТЛАНА", score: 1 },
+      { name: "2ПЕТРЕНКО ПjЕТРО", score: 23 },
+      { name: "2ІВАН ІВАНОВИЧ ІbВАНОВ", score: 11 },
+      { name: "2ВАСИЛЕНКО ВАgСИЛЬ", score: 4 },
+      { name: "2СВІТЛАНЕНКО cСВІТЛАНА", score: 1 },
       {
-        name: "2ПЕТРЕНКО ПЕТРО",
-        score: 1,
+        name: "2ПЕТРЕНКО ПfЕТРО --->",
+        score: 5,
         supporters: [
-          { name: "3ПЕТРЕНКО ПЕТРО", score: 23 },
-          { name: "3ІВАН ІВАНОВИЧ ІВАНОВ", score: 11 },
-          { name: "3ВАСИЛЕНКО ВАСИЛЬ", score: 4 },
-          { name: "3СВІТЛАНЕНКО СВІТЛАНА", score: 1 },
-          { name: "3ПЕТРЕНКО ПЕТРО", score: 1 },
+          { name: "3ПЕТРЕНКО ПaЕТРО", score: 23 },
+          { name: "3ІВАН ІВАНОВИЧ ІvВАНОВ", score: 11 },
+          { name: "3ВАСИЛЕНКО ВАСzИЛЬ", score: 4 },
+          { name: "3СВІТЛАНЕНКО СВІcТЛАНА", score: 1 },
+          { name: "3ПЕТРЕНКО ПЕТ РО", score: 1 },
         ],
       },
-      { name: "ІВАН ІВАНОВИЧ ІВАНОВ", score: 1 },
+      { name: "ІВАН ІВАНОВИЧ ІВАcНОВ", score: 1 },
       {
-        name: "ВАСИЛЕНКО ВАСИЛЬ",
-        score: 1,
+        name: "ВАСИЛЕНКО ВАСИxЛЬ--->",
+        score: 8,
         supporters: [
-          { name: "ПЕТРЕНКО ПЕТРО", score: 23 },
-          { name: "ІВАН ІВАНОВИЧ ІВАНОВ", score: 11 },
+          { name: "ПЕТРЕНКО ПЕwТРО", score: 23 },
+          { name: "ІВАН ІВАНОВИЧd ІВАНОВ", score: 11 },
           {
-            name: "ВАСИЛЕНКО ВАСИЛЬ",
+            name: "ВАСИЛЕНКО ВАСhИЛЬ---->",
             score: 4,
             supporters: [
-              { name: "ПЕТРЕНКО ПЕТРО", score: 23 },
-              { name: "ІВАН ІВАНОВИЧ ІВАНОВ", score: 11 },
-              { name: "ВАСИЛЕНКО ВАСИЛЬ", score: 4 },
-              { name: "СВІТЛАНЕНКО СВІТЛАНА", score: 1 },
-              { name: "ПЕТРЕНКО ПЕТРО", score: 1 },
+              { name: "ПЕТРЕНКО ПdЕТРО", score: 23 },
+              { name: "ІВАН ІВАНОВfИЧ ІВАНОВ", score: 11 },
+              { name: "ВАСИЛЕНКО ВvАСИЛЬ", score: 4 },
+              { name: "СВІТЛАНЕНКО dСВІТЛАНА", score: 1 },
+              { name: "ПЕТРЕНКО ПЕТzРО", score: 1 },
             ],
           },
-          { name: "СВІТЛАНЕНКО СВІТЛАНА", score: 1 },
-          { name: "ПЕТРЕНКО ПЕТРО", score: 1 },
+          { name: "СВІТЛАНЕНКО СВІwТЛАНА", score: 1 },
+          { name: "ПЕТРЕНКО ПЕТРgО", score: 1 },
         ],
       },
-      { name: "СВІТЛАНЕНКО СВІТЛАНА", score: 1 },
+      { name: "СВІТЛАНЕНКО СВІТЛАfНА", score: 1 },
     ],
   },
-  { name: "ПЕТРЕНКО ПЕТРО", score: 66 },
-  { name: "ІВАН ІВАНОВИЧ ІВАНОВ", score: 66 },
-  { name: "ВАСИЛЕНКО ВАСИЛЬ", score: 66 },
-  { name: "СВІТЛАНЕНКО СВІТЛАНА", score: 66 },
-  { name: "ПЕТРЕНКО ПЕТРО", score: 66 },
-  { name: "ІВАН ІВАНОВИЧ ІВАНОВ", score: 66 },
-  { name: "ВАСИЛЕНКО ВАСИЛЬ", score: 66 },
-  { name: "СВІТЛАНЕНКО СВІТЛАНА", score: 66 },
-  { name: "ПЕТРЕНКО ПЕТРО", score: 66 },
-  { name: "ІВАН ІВАНОВИЧ ІВАНОВ", score: 1 },
-  { name: "ВАСИЛЕНКО ВАСИЛЬ", score: 1 },
-  { name: "СВІТЛАНЕНКО СВІТЛАНА", score: 1 },
-  { name: "ПЕТРЕНКО ПЕТРО", score: 1 },
-  { name: "ІВАН ІВАНОВИЧ ІВАНОВ", score: 1 },
-  { name: "ВАСИЛЕНКО ВАСИЛЬ", score: 1 },
-  { name: "СВІТЛАНЕНКО СВІТЛАНА", score: 1 },
-  { name: "ПЕТРЕНКО ПЕТРО", score: 1 },
-  { name: "ІВАН ІВАНОВИЧ ІВАНОВ", score: 1 },
-  { name: "ВАСИЛЕНКО ВАСИЛЬ", score: 1 },
-  { name: "СВІТЛАНЕНКО СВІТЛАНА", score: 1 },
-  { name: "ПЕТРЕНКО ПЕТРО", score: 1 },
-  { name: "ІВАН ІВАНОВИЧ ІВАНОВ", score: 1 },
+  { name: "ПЕТРЕНКО ПЕТljРО", score: 66 },
+  { name: "ІВАН ІВАНОgfВИЧ ІВАНОВ", score: 66 },
+  { name: "ВАСИЛЕНfgКО ВАСИЛЬ", score: 66 },
+  { name: "СВfgІТЛАНЕНКО СВІТЛАНА", score: 66 },
+  { name: "ПЕТРЕgfНКО ПЕТРО", score: 66 },
+  { name: "ІvcВАН ІВАНОВИЧ ІВАНОВ", score: 66 },
+  { name: "vcВАСИЛЕНКО ВАСИЛЬ", score: 66 },
+  { name: "СDFВІТЛАНЕНКО СВІТЛАНА", score: 66 },
+  { name: "FПЕТРЕНКО ПЕТРО", score: 66 },
+  { name: "FFІВАН ІВАНОВИЧ ІВАНОВ", score: 1 },
+  { name: "ВАGFСИЛЕНКО ВАСИЛЬ", score: 1 },
+  { name: "СВІТЛАGFНЕНКО СВІТЛАНА", score: 1 },
+  { name: "ПЕТРЕНКDFGО ПЕТРО", score: 1 },
+  { name: "ІВАН ІВАGDFНОВИЧ ІВАНОВ", score: 1 },
+  { name: "ВАСИЛЕНFDКО ВАСИЛЬ", score: 1 },
+  { name: "СВІТЛАНGFDЕНКО СВІТЛАНА", score: 1 },
+  { name: "ПЕТРЕНКОDFG ПЕТРО", score: 1 },
+  { name: "ІВАН ІВАНFDОВИЧ ІВАНОВ", score: 1 },
+  { name: "ВАСИЛЕНКО ВDFАСИЛЬ", score: 1 },
+  { name: "СВІТЛАНЕНКО СDFGВІТЛАНА", score: 1 },
+  { name: "ПЕТРЕНКО ПGЕТРО", score: 1 },
+  { name: "ІВАН ІВАНОFDВИЧ ІВАНОВ", score: 1 },
 ];
 
 type User = {
@@ -100,11 +101,11 @@ type User = {
 // const associatesPusher = (user: User, nestedLevel: number) => {
 //   const newNestedLevel = nestedLevel + 1;
 //   // dummyAssociatesUnified.push({ ...user, nestedLevel: newNestedLevel });
-  // if (user.supportersOpen && user.supporters) {
-  //   user.supporters.forEach((supporter) => {
-  //     associatesPusher(supporter, newNestedLevel);
-  //   });
-  // }
+// if (user.supportersOpen && user.supporters) {
+//   user.supporters.forEach((supporter) => {
+//     associatesPusher(supporter, newNestedLevel);
+//   });
+// }
 // };
 // dummyAssociates.forEach((user) => {
 //   associatesPusher(user, -1);
@@ -113,9 +114,9 @@ type User = {
 const RecursiveListItem: React.FC<{
   user: User;
   nestedLevel: number;
-  selection: number[];
+  selection: string[];
   index: number;
-  setSelection: (selection: number[]) => void;
+  setSelection: (selection: string[]) => void;
 }> = ({ user, nestedLevel, selection, index, setSelection }) => {
   const newNestedLevel = nestedLevel + 1;
   return (
@@ -127,6 +128,12 @@ const RecursiveListItem: React.FC<{
           paddingRight: 0,
           alignItems: "center",
           flexWrap: "wrap",
+          borderBottomWidth: 2,
+          borderTopWidth: 0,
+          borderLeftWidth: 0,
+          borderRightWidth: 0,
+          borderStyle: "solid",
+          borderColor: mainTheme.palette.secondary.main,
         }}
       >
         <ListItemText
@@ -154,13 +161,23 @@ const RecursiveListItem: React.FC<{
                     minWidth: 0,
                     marginLeft: 8 * nestedLevel,
                   }}
+                  disabled={user.score === 1}
                   onClick={() => {
-                    setSelection([index]);
+                    if (selection.some((s) => s === user.name)) {
+                      setSelection(selection.filter((s) => s !== user.name));
+                    } else setSelection([...selection, user.name]);
                   }}
                 >
-                  <KeyboardDoubleArrowDownIcon />
+                  {user.score === 1 ? (
+                    <KeyboardDoubleArrowRight />
+                  ) : selection.some((s) => s === user.name) ? (
+                    <KeyboardDoubleArrowDownIcon
+                      style={{ transform: "rotate(180deg)" }}
+                    />
+                  ) : (
+                    <KeyboardDoubleArrowDownIcon />
+                  )}
                 </Button>
-
                 <Typography>{user.name}</Typography>
               </span>
               <div style={{ width: 25, textAlign: "center" }}>
@@ -169,38 +186,31 @@ const RecursiveListItem: React.FC<{
             </span>
           }
         />
-        {/* <List
-            style={{
-              padding: 0,
-              width: "100%",
-              paddingRight: 8 * (nestedLevel + 1),
-            }}
-          >
-            {supportersList(user, nestedLevel)}
-          </List> */}
       </ListItem>
       {user.supporters &&
-        index === selection[0] &&
-          user.supporters.map((supporter, idx) => (
-            <RecursiveListItem
-              user={supporter}
-              nestedLevel={newNestedLevel}
-              index={idx}
-              selection={selection}
-              setSelection={setSelection}
-            />
-          ))}
+        selection.some((s) => s === user.name) &&
+        user.supporters.map((supporter, idx) => (
+          <RecursiveListItem
+            key={supporter.name}
+            user={supporter}
+            nestedLevel={newNestedLevel}
+            index={idx}
+            selection={selection}
+            setSelection={setSelection}
+          />
+        ))}
     </>
   );
 };
 
 const LeadersPage = () => {
   const [associates, setAssociates] = React.useState<User[]>(dummyAssociates);
-  const [selection, setSelection] = React.useState<number[]>([]);
+  const [selection, setSelection] = React.useState<string[]>([]);
   return (
     <List style={{ padding: 0 }}>
       {associates.map((user, idx) => (
         <RecursiveListItem
+          key={user.name + "SDFSD"}
           user={user}
           nestedLevel={0}
           selection={selection}

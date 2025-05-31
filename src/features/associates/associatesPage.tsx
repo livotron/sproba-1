@@ -41,7 +41,6 @@ const AssociatesPage = () => {
         style={{
           display: "flex",
           alignItems: "center",
-          marginBottom: 8,
           width: "100%",
         }}
       >
