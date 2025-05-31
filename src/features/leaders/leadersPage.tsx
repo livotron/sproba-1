@@ -91,6 +91,30 @@ const dummyAssociates = [
   { name: "ІВАН ІВАНОFDВИЧ ІВАНОВ", score: 1 },
 ];
 
+const leadersDummy = [
+    { name: "ПЕТРЕНКО ПЕТljРО", score: 66 },
+  { name: "ІВАН ІВАНОgfВИЧ ІВАНОВ", score: 66 },
+  { name: "ВАСИЛЕНfgКО ВАСИЛЬ", score: 66 },
+  { name: "СВfgІТЛАНЕНКО СВІТЛАНА", score: 66 },
+  { name: "ПЕТРЕgfНКО ПЕТРО", score: 66 },
+  { name: "ІvcВАН ІВАНОВИЧ ІВАНОВ", score: 66 },
+  { name: "vcВАСИЛЕНКО ВАСИЛЬ", score: 66 },
+  { name: "СDFВІТЛАНЕНКО СВІТЛАНА", score: 66 },
+  { name: "FПЕТРЕНКО ПЕТРО", score: 66 },
+  { name: "FFІВАН ІВАНОВИЧ ІВАНОВ", score: 1 },
+  { name: "ВАGFСИЛЕНКО ВАСИЛЬ", score: 1 },
+  { name: "СВІТЛАGFНЕНКО СВІТЛАНА", score: 1 },
+  { name: "ПЕТРЕНКDFGО ПЕТРО", score: 1 },
+  { name: "ІВАН ІВАGDFНОВИЧ ІВАНОВ", score: 1 },
+  { name: "ВАСИЛЕНFDКО ВАСИЛЬ", score: 1 },
+  { name: "СВІТЛАНGFDЕНКО СВІТЛАНА", score: 1 },
+  { name: "ПЕТРЕНКОDFG ПЕТРО", score: 1 },
+  { name: "ІВАН ІВАНFDОВИЧ ІВАНОВ", score: 1 },
+  { name: "ВАСИЛЕНКО ВDFАСИЛЬ", score: 1 },
+  { name: "СВІТЛАНЕНКО СDFGВІТЛАНА", score: 1 },
+  { name: "ПЕТРЕНКО ПGЕТРО", score: 1 },
+  { name: "ІВАН ІВАНОFDВИЧ ІВАНОВ", score: 1 },
+]
 type User = {
   name: string;
   score: number;
@@ -110,6 +134,25 @@ type User = {
 // dummyAssociates.forEach((user) => {
 //   associatesPusher(user, -1);
 // });
+
+const LeadersPage = () => {
+  const [associates, setAssociates] = React.useState<User[]>(dummyAssociates);
+  const [selection, setSelection] = React.useState<string[]>([]);
+  return (
+    <List style={{ padding: 0 }}>
+      {associates.map((user, idx) => (
+        <RecursiveListItem
+          key={user.name + "SDFSD"}
+          user={user}
+          nestedLevel={0}
+          selection={selection}
+          index={idx}
+          setSelection={setSelection}
+        />
+      ))}
+    </List>
+  );
+};
 
 const RecursiveListItem: React.FC<{
   user: User;
@@ -200,25 +243,6 @@ const RecursiveListItem: React.FC<{
           />
         ))}
     </>
-  );
-};
-
-const LeadersPage = () => {
-  const [associates, setAssociates] = React.useState<User[]>(dummyAssociates);
-  const [selection, setSelection] = React.useState<string[]>([]);
-  return (
-    <List style={{ padding: 0 }}>
-      {associates.map((user, idx) => (
-        <RecursiveListItem
-          key={user.name + "SDFSD"}
-          user={user}
-          nestedLevel={0}
-          selection={selection}
-          index={idx}
-          setSelection={setSelection}
-        />
-      ))}
-    </List>
   );
 };
 
