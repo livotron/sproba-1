@@ -10,6 +10,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import React, { useState } from "react";
 import { searchUsersByName } from "./associatesApi";
+import { useNavigate } from "react-router";
 
 interface SearchBarProps {
   associate: string;
@@ -25,6 +26,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const [options, setOptions] = useState<string[]>([]);
   const [searchActive, setSearchActive] = useState(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   const handleInputValueChange = (newInputValue: string) => {
     const inputValueCapitalized = newInputValue.toUpperCase();
@@ -72,7 +74,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
             marginRight: 8,
           }}
         >
-          <SearchIcon color="action" style={{position: "absolute"}} />
+          <SearchIcon color="action" style={{ position: "absolute" }} />
         </Button>
         <Typography variant="h6">{associate}</Typography>
       </Box>
@@ -89,6 +91,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
         if (newValue) {
           getSearchedUser(newValue);
           setSearchActive(false);
+            console.log("Navigating to associate:", navigate);
+            navigate(`/associates/${newValue.replaceAll(" ", "_")}`);
+
         }
       }}
       onBlur={() => {
@@ -115,7 +120,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
             ...params.InputProps,
             startAdornment: (
               <InputAdornment
-                        style={{ paddingLeft: 4}}
+                style={{ paddingLeft: 4 }}
                 onClick={() => {
                   if (inputRef.current) {
                     inputRef.current.value = "";

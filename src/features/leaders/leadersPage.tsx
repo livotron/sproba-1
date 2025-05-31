@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 import { mainTheme } from "../../App";
 import { KeyboardDoubleArrowRight } from "@mui/icons-material";
-import FlagIcon from '@mui/icons-material/Flag';
+import FlagIcon from "@mui/icons-material/Flag";
 
 const dummyAssociates = [
   {
@@ -26,11 +26,11 @@ const dummyAssociates = [
     ],
   },
   {
-    name: "1СВІТЛАНЕНКО СВІТasЛАНА",
+    name: "LEADER 2",
     score: 66,
     supporters: [
       { name: "2ПЕТРЕНКО ПjЕТРО", score: 23 },
-      { name: "2ІВАН ІВАНОВИЧ ІbВАНОВ", score: 11 },
+      { name: "LEADER LEADEROV", score: 11 },
       { name: "2ВАСИЛЕНКО ВАgСИЛЬ", score: 4 },
       { name: "2СВІТЛАНЕНКО cСВІТЛАНА", score: 1 },
       {
@@ -227,20 +227,27 @@ const RecursiveListItem: React.FC<{
                   )}
                 </Button>
                 <Typography>{user.name}</Typography>
-                {newNestedLevel === 1 && index ===0 && (
-                  <FlagIcon fontSize="large" style={{color: mainTheme.palette.primary.main, position: "relative", top: -7}} />
+                {newNestedLevel === 1 && index === 0 && (
+                  <FlagIcon
+                    fontSize="large"
+                    style={{
+                      color: mainTheme.palette.primary.main,
+                      position: "relative",
+                      top: -7,
+                    }}
+                  />
                 )}
               </span>
               <Button
                 variant="outlined"
                 color="primary"
                 onClick={() => {
-                  navigate(`/associates/${user.name}`);
+                  navigate(`/associates/${user.name.replaceAll(" ", "_")}`);
                 }}
                 style={{
                   height: 36,
                   minWidth: 40,
-                  padding: 0
+                  padding: 0,
                 }}
               >
                 <Typography>{user.score}</Typography>

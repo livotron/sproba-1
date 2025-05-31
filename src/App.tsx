@@ -14,7 +14,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { getContrastYIQ } from "./utils/colors";
 
-export const userColor = "#FFA500"
+export const userColor = "#FFA500";
 
 export const mainTheme = createTheme({
   palette: {
@@ -43,7 +43,12 @@ function MainContent() {
 
   let initialTab = 0;
 
-  const idx = location.pathname === "/" ? 0 : location.pathname.indexOf("/history") ? 1 : 2;
+  const idx =
+    location.pathname === "/"
+      ? 0
+      : location.pathname.indexOf("/history")
+      ? 1
+      : 2;
   if (idx !== tab) {
     initialTab = idx;
   }
@@ -51,17 +56,20 @@ function MainContent() {
   React.useEffect(() => {
     const shortLocation = location.pathname.match("^/[^/]+");
     console.log("shortLocation", shortLocation);
-    const tabIndex = tabRoutes.indexOf((shortLocation && shortLocation[0]) || "/");
+    const tabIndex = tabRoutes.indexOf(
+      (shortLocation && shortLocation[0]) || "/"
+    );
     if (tabIndex !== -1 && tabIndex !== tab) {
+      setTabModified(true);
       setTab(tabIndex);
     }
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [location.pathname]);
 
   return (
     <>
       <AppBar position="fixed">
-        <Toolbar style={{paddingRight: 8, paddingLeft: 8}}>
+        <Toolbar style={{ paddingRight: 8, paddingLeft: 8 }}>
           <Tabs
             value={tabModified ? tab : initialTab}
             onChange={handleTabChange}
@@ -91,17 +99,15 @@ function MainContent() {
             <Tab label="ЛІДЕРИ" />
             <Tab label="СОРАТНИКИ" />
             <Tab label={"ІСТОРІЯ"} />
-
           </Tabs>
         </Toolbar>
       </AppBar>
-        <Routes>
-          <Route path="/" element={<LeadersPage />} />
-          <Route path="/associates" element={<AssociatesPage />} />
-          <Route path="/associates/:associate" element={<AssociatesPage />} />
-          <Route path="/history" element={"HISTORY"} />
-
-        </Routes>
+      <Routes>
+        <Route path="/" element={<LeadersPage />} />
+        <Route path="/associates" element={<AssociatesPage />} />
+        <Route path="/associates/:associate" element={<AssociatesPage />} />
+        <Route path="/history" element={"HISTORY"} />
+      </Routes>
     </>
   );
 }
@@ -111,7 +117,16 @@ function App() {
     <ThemeProvider theme={mainTheme}>
       <Provider store={store}>
         <BrowserRouter>
-          <div className="App" style={{ paddingRight: 8, paddingLeft: 8, paddingTop: 56, height: "100vh", boxSizing: "border-box" }}>
+          <div
+            className="App"
+            style={{
+              paddingRight: 8,
+              paddingLeft: 8,
+              paddingTop: 56,
+              height: "100vh",
+              boxSizing: "border-box",
+            }}
+          >
             <MainContent />
           </div>
         </BrowserRouter>

@@ -1,7 +1,7 @@
 import { Typography, Box, Button } from "@mui/material";
 import React, { useEffect } from "react";
 import SearchBar from "./searchBar";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import LetterBubble from "./LetterBubble";
 import MutualConnection from "./MutualConnection";
 import CakeIcon from "@mui/icons-material/Cake";
@@ -11,22 +11,22 @@ import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArro
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import { mainTheme } from "../../App";
+
 const AssociatesPage = () => {
   const params = useParams<{ associate?: string }>();
-  const navigate = useNavigate();
-  const [associate, setAssociate] = React.useState(
-    params.associate ? params.associate.replaceAll("_", " ") : ""
-  );
+  const location = useLocation();
+  const [associate, setAssociate] = React.useState("");
 
-  // Update URL when associate changes
+  // Set associate according to location.pathname
   useEffect(() => {
-    if (associate) {
-      navigate(`/associates/${associate.replaceAll(" ", "_")}`);
+    const match = location.pathname.match(/^\/associates\/(.+)$/);
+    if (match && match[1]) {
+      const decodedURI =decodeURIComponent(match[1]);
+      setAssociate(decodedURI.replaceAll("_", " "));
     } else {
-      navigate(`/associates`);
+      setAssociate("");
     }
-    // eslint-disable-next-line
-  }, [associate]);
+  }, [location.pathname]);
 
   const getSearchedUser = (name: string | null) => {
     setAssociate(name || "");
