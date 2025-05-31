@@ -7,13 +7,15 @@ import {
 } from "@mui/material";
 import React from "react";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
+import { useNavigate } from "react-router-dom";
 
 import { mainTheme } from "../../App";
 import { KeyboardDoubleArrowRight } from "@mui/icons-material";
+import FlagIcon from '@mui/icons-material/Flag';
 
 const dummyAssociates = [
   {
-    name: "ФІВАПФІВАПФІВАПФІВАПФІВАП",
+    name: "ЛІДЕР ЛІДЕРЧУК",
     score: 88,
     supporters: [
       { name: "2ПЕТРЕНDКО ПЕТsdfРО", score: 23 },
@@ -92,7 +94,7 @@ const dummyAssociates = [
 ];
 
 const leadersDummy = [
-    { name: "ПЕТРЕНКО ПЕТljРО", score: 66 },
+  { name: "ПЕТРЕНКО ПЕТljРО", score: 66 },
   { name: "ІВАН ІВАНОgfВИЧ ІВАНОВ", score: 66 },
   { name: "ВАСИЛЕНfgКО ВАСИЛЬ", score: 66 },
   { name: "СВfgІТЛАНЕНКО СВІТЛАНА", score: 66 },
@@ -114,7 +116,7 @@ const leadersDummy = [
   { name: "СВІТЛАНЕНКО СDFGВІТЛАНА", score: 1 },
   { name: "ПЕТРЕНКО ПGЕТРО", score: 1 },
   { name: "ІВАН ІВАНОFDВИЧ ІВАНОВ", score: 1 },
-]
+];
 type User = {
   name: string;
   score: number;
@@ -138,6 +140,7 @@ type User = {
 const LeadersPage = () => {
   const [associates, setAssociates] = React.useState<User[]>(dummyAssociates);
   const [selection, setSelection] = React.useState<string[]>([]);
+  const navigate = useNavigate();
   return (
     <List style={{ padding: 0 }}>
       {associates.map((user, idx) => (
@@ -148,6 +151,7 @@ const LeadersPage = () => {
           selection={selection}
           index={idx}
           setSelection={setSelection}
+          navigate={navigate}
         />
       ))}
     </List>
@@ -160,7 +164,8 @@ const RecursiveListItem: React.FC<{
   selection: string[];
   index: number;
   setSelection: (selection: string[]) => void;
-}> = ({ user, nestedLevel, selection, index, setSelection }) => {
+  navigate: ReturnType<typeof useNavigate>;
+}> = ({ user, nestedLevel, selection, index, setSelection, navigate }) => {
   const newNestedLevel = nestedLevel + 1;
   return (
     <>
@@ -222,10 +227,24 @@ const RecursiveListItem: React.FC<{
                   )}
                 </Button>
                 <Typography>{user.name}</Typography>
+                {newNestedLevel === 1 && index ===0 && (
+                  <FlagIcon fontSize="large" style={{color: mainTheme.palette.primary.main, position: "relative", top: -7}} />
+                )}
               </span>
-              <div style={{ width: 25, textAlign: "center" }}>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => {
+                  navigate(`/associates/${user.name}`);
+                }}
+                style={{
+                  height: 36,
+                  minWidth: 40,
+                  padding: 0
+                }}
+              >
                 <Typography>{user.score}</Typography>
-              </div>
+              </Button>
             </span>
           }
         />
@@ -240,6 +259,7 @@ const RecursiveListItem: React.FC<{
             index={idx}
             selection={selection}
             setSelection={setSelection}
+            navigate={navigate}
           />
         ))}
     </>

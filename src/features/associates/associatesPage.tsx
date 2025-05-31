@@ -21,11 +21,9 @@ const AssociatesPage = () => {
   // Update URL when associate changes
   useEffect(() => {
     if (associate) {
-      navigate(`/associates/${associate.replaceAll(" ", "_")}`, {
-        replace: true,
-      });
+      navigate(`/associates/${associate.replaceAll(" ", "_")}`);
     } else {
-      navigate(`/associates`, { replace: true });
+      navigate(`/associates`);
     }
     // eslint-disable-next-line
   }, [associate]);

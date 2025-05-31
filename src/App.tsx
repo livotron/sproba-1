@@ -48,6 +48,16 @@ function MainContent() {
     initialTab = idx;
   }
 
+  React.useEffect(() => {
+    const shortLocation = location.pathname.match("^/[^/]+");
+    console.log("shortLocation", shortLocation);
+    const tabIndex = tabRoutes.indexOf((shortLocation && shortLocation[0]) || "/");
+    if (tabIndex !== -1 && tabIndex !== tab) {
+      setTab(tabIndex);
+    }
+  // eslint-disable-next-line
+  }, [location.pathname]);
+
   return (
     <>
       <AppBar position="fixed">
