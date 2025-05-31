@@ -26,6 +26,28 @@ export function lightenColorLinear(hex: string, percent: number) {
   return rgbToHex(r, g, b);
 }
 
+export function darkenColor(color: string, percent: number) {
+  let r, g, b;
+  if (color.startsWith("#")) {
+    // Convert HEX to RGB
+    const hex = color.slice(1);
+    r = parseInt(hex.substring(0, 2), 16);
+    g = parseInt(hex.substring(2, 4), 16);
+    b = parseInt(hex.substring(4, 6), 16);
+  } 
+  const factor = 1 - percent / 100;
+  r = Math.max(0, Math.min(255, Math.round(r || 1 * factor)));
+  g = Math.max(0, Math.min(255, Math.round(g || 1 * factor)));
+  b = Math.max(0, Math.min(255, Math.round(b || 1 * factor)));
+
+  // Convert back to HEX
+  const toHex = (c: number) => {
+    const hex = c.toString(16);
+    return hex.length === 1 ? "0" + hex : hex;
+  };
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+}
+
 export function getContrastYIQ(hexcolor: string): string {
   var r = parseInt(hexcolor.substring(1, 3), 16);
   var g = parseInt(hexcolor.substring(3, 5), 16);
