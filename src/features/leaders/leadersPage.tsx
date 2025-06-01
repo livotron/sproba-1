@@ -5,7 +5,7 @@ import {
   ListItemText,
   Button,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import { useNavigate } from "react-router-dom";
 
@@ -15,33 +15,54 @@ import FlagIcon from "@mui/icons-material/Flag";
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from "react-redux";
 import { useAppDispatch } from "../../store";
-import { fetchLeaders, Leader } from "./leadersSlice";
+import { fetchLeaders, fetchSupportersByLeader, Leader } from "./leadersSlice";
 import { RootState } from "../../rootReducer";
 
-
-type User = {
-  name: string;
-  score: number;
-  supporters?: User[];
-};
 
 const LeadersPage = () => {
   // const [associates, setAssociates] = React.useState<User[]>(dummyAssociates);
   const [selection, setSelection] = React.useState<string[]>([]);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { leaders, loading, error } = useSelector((state: RootState) => state.leaders);
+  const { leaders, loading, error, supportersList } = useSelector((state: RootState) => state.leaders);
 
   useEffect(() => {
     dispatch(fetchLeaders());
   }, [dispatch]);
+
+  const handleFetchButtonClick = (name: string) => {
+      dispatch(fetchSupportersByLeader(name))
+      setSelection([...selection, name]);
+    
+  };
+  const leadersTree = useMemo(() => {
+    
+    const addSupporters =(leader: Leader):Leader => {
+      const supportersItem = supportersList.find(
+        (item) => item.supportedLeaderName === leader.name)
+      if (supportersItem) {
+        supportersItem.supporters.forEach(supporter => {
+          addSupporters(supporter)
+        });
+        return {
+          ...leader,
+          supporters: supportersItem.supporters,
+        };
+      } else
+        return leader;
+    }
+    const newLeaders = leaders.map((leader) => addSupporters(leader));
+    console.log("newLeaders", newLeaders);
+    return newLeaders;
+    
+  }, [leaders, supportersList]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
     <List style={{ padding: 0 }}>
-      {leaders.map((user, idx) => (
+      {leadersTree.map((user, idx) => (
         <RecursiveListItem
           key={user.name + "SDFSD"}
           user={user}
@@ -50,6 +71,7 @@ const LeadersPage = () => {
           index={idx}
           setSelection={setSelection}
           navigate={navigate}
+          handleFetchButtonClick={handleFetchButtonClick}
         />
       ))}
     </List>
@@ -57,13 +79,14 @@ const LeadersPage = () => {
 };
 
 const RecursiveListItem: React.FC<{
-  user: User;
+  user: Leader;
   nestedLevel: number;
   selection: string[];
   index: number;
   setSelection: (selection: string[]) => void;
   navigate: ReturnType<typeof useNavigate>;
-}> = ({ user, nestedLevel, selection, index, setSelection, navigate }) => {
+  handleFetchButtonClick: (name: string) => void;
+}> = ({ user, nestedLevel, selection, index, setSelection, navigate, handleFetchButtonClick }) => {
   const newNestedLevel = nestedLevel + 1;
   return (
     <>
@@ -111,7 +134,9 @@ const RecursiveListItem: React.FC<{
                   onClick={() => {
                     if (selection.some((s) => s === user.name)) {
                       setSelection(selection.filter((s) => s !== user.name));
-                    } else setSelection([...selection, user.name]);
+                    } else {
+                      handleFetchButtonClick(user.name);
+                    };
                   }}
                 >
                   {user.score === 1 ? (
@@ -165,6 +190,7 @@ const RecursiveListItem: React.FC<{
             selection={selection}
             setSelection={setSelection}
             navigate={navigate}
+            handleFetchButtonClick={handleFetchButtonClick}
           />
         ))}
     </>

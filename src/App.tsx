@@ -98,7 +98,7 @@ function MainContent() {
           >
             <Tab label="ЛІДЕРИ" />
             <Tab label="СОРАТНИКИ" />
-            <Tab label={"ІСТОРІЯ"} />
+            <Tab label="КОТИКИ" />
           </Tabs>
         </Toolbar>
       </AppBar>

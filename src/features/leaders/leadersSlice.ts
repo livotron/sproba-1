@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk } from "../../store";
-import { fetchLeadersCall } from "./leadersApi";
+import { fetchLeadersCall, fetchSupportersByLeaderCall } from "./leadersApi";
 
 export interface Leader {
   name: string;
@@ -8,15 +8,22 @@ export interface Leader {
   supporters?: Leader[];
 }
 
+export interface Supporters {
+  supporters: Leader[];
+  supportedLeaderName: string;
+}
+
 interface LeaderSliceState {
   loading: boolean;
   leaders: Leader[];
+  supportersList: Supporters[];
   error?: string;
 }
 
 const initialState: LeaderSliceState = {
   loading: false,
   leaders: [],
+  supportersList: [],
   error: undefined,
 };
 
@@ -40,6 +47,19 @@ const leadersSlice = createSlice({
     setLeaders(state, action: PayloadAction<Leader[]>) {
       state.leaders = action.payload;
     },
+    fetchSupportersStart(state) {
+      state.loading = true;
+      state.error = undefined;
+    },
+    fetchSupportersSuccess(state, action: PayloadAction<Supporters[]>) {
+      state.loading = false;
+      state.supportersList = action.payload;
+      state.error = undefined;
+    },
+    fetchSupportersFailure(state, action: PayloadAction<string>) {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
@@ -50,19 +70,43 @@ export const fetchLeaders = (): AppThunk => async (dispatch) => {
     // Simulate API delay
 
     // Dummy data
-    const dummyLeaders = await fetchLeadersCall()
-    
-    dispatch(fetchLeadersSuccess(dummyLeaders));
+    const leaders = await fetchLeadersCall();
+
+    dispatch(fetchLeadersSuccess(leaders));
   } catch (e) {
     dispatch(fetchLeadersFailure("Failed to fetch leaders"));
   }
 };
+
+export const fetchSupportersByLeader =
+  (leaderName: string): AppThunk =>
+  async (dispatch, getState) => {
+    try {
+      dispatch(fetchSupportersStart());
+      // Simulate API delay
+
+      // Dummy data
+      const supportersList = await fetchSupportersByLeaderCall(leaderName);
+
+      dispatch(
+        fetchSupportersSuccess([
+          ...getState().leaders.supportersList,
+          { supporters: supportersList, supportedLeaderName: leaderName },
+        ])
+      );
+    } catch (e) {
+      dispatch(fetchSupportersFailure("Failed to fetch supporters"));
+    }
+  };
 
 export const {
   fetchLeadersStart,
   fetchLeadersSuccess,
   fetchLeadersFailure,
   setLeaders,
+  fetchSupportersStart,
+  fetchSupportersSuccess,
+  fetchSupportersFailure,
 } = leadersSlice.actions;
 
 export default leadersSlice.reducer;
