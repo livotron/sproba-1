@@ -27,7 +27,7 @@ export const mainTheme = createTheme({
   },
 });
 
-const tabRoutes = ["/", "/associates", "/history"];
+const tabRoutes = ["/", "/associates"];
 
 function MainContent() {
   const location = useLocation();
@@ -42,15 +42,13 @@ function MainContent() {
   };
 
   let initialTab = 0;
-
-  const idx =
-    location.pathname === "/"
-      ? 0
-      : location.pathname.indexOf("/history")
-      ? 1
-      : 2;
-  if (idx !== tab) {
-    initialTab = idx;
+ const shortLocation = location.pathname.match("^/[^/]+");
+    console.log("shortLocation", shortLocation);
+    const tabIndex = tabRoutes.indexOf(
+      (shortLocation && shortLocation[0]) || "/"
+    );
+  if (tabIndex !== tab) {
+    initialTab = tabIndex;
   }
 
   React.useEffect(() => {
@@ -98,7 +96,6 @@ function MainContent() {
           >
             <Tab label="ЛІДЕРИ" />
             <Tab label="СОРАТНИКИ" />
-            <Tab label="КОТИКИ" />
           </Tabs>
         </Toolbar>
       </AppBar>
@@ -106,7 +103,6 @@ function MainContent() {
         <Route path="/" element={<LeadersPage />} />
         <Route path="/associates" element={<AssociatesPage />} />
         <Route path="/associates/:associate" element={<AssociatesPage />} />
-        <Route path="/history" element={"HISTORY"} />
       </Routes>
     </>
   );
