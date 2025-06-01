@@ -12,49 +12,51 @@ import { useNavigate } from "react-router-dom";
 import { mainTheme } from "../../App";
 import { KeyboardDoubleArrowRight } from "@mui/icons-material";
 import FlagIcon from "@mui/icons-material/Flag";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { useAppDispatch } from "../../store";
-import { fetchLeaders, fetchSupportersByLeader, Leader } from "./leadersSlice";
+import {
+  fetchLeaders,
+  fetchSupportersByLeader,
+  Leader,
+  Supporters,
+} from "./leadersSlice";
 import { RootState } from "../../rootReducer";
-
 
 const LeadersPage = () => {
   // const [associates, setAssociates] = React.useState<User[]>(dummyAssociates);
   const [selection, setSelection] = React.useState<string[]>([]);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { leaders, loading, error, supportersList } = useSelector((state: RootState) => state.leaders);
+  const { leaders, loading, error, supportersList } = useSelector(
+    (state: RootState) => state.leaders
+  );
 
   useEffect(() => {
     dispatch(fetchLeaders());
   }, [dispatch]);
 
   const handleFetchButtonClick = (name: string) => {
-      dispatch(fetchSupportersByLeader(name))
-      setSelection([...selection, name]);
-    
+    dispatch(fetchSupportersByLeader(name));
   };
   const leadersTree = useMemo(() => {
-    
-    const addSupporters =(leader: Leader):Leader => {
+    const addSupporters = (leader: Leader): Leader => {
       const supportersItem = supportersList.find(
-        (item) => item.supportedLeaderName === leader.name)
+        (item) => item.supportedLeaderName === leader.name
+      );
       if (supportersItem) {
-        supportersItem.supporters.forEach(supporter => {
-          addSupporters(supporter)
+        supportersItem.supporters.forEach((supporter) => {
+          addSupporters(supporter);
         });
         return {
           ...leader,
           supporters: supportersItem.supporters,
         };
-      } else
-        return leader;
-    }
+      } else return leader;
+    };
     const newLeaders = leaders.map((leader) => addSupporters(leader));
     console.log("newLeaders", newLeaders);
     return newLeaders;
-    
   }, [leaders, supportersList]);
 
   if (loading) return <div>Loading...</div>;
@@ -72,6 +74,7 @@ const LeadersPage = () => {
           setSelection={setSelection}
           navigate={navigate}
           handleFetchButtonClick={handleFetchButtonClick}
+          supportersList={supportersList}
         />
       ))}
     </List>
@@ -86,7 +89,17 @@ const RecursiveListItem: React.FC<{
   setSelection: (selection: string[]) => void;
   navigate: ReturnType<typeof useNavigate>;
   handleFetchButtonClick: (name: string) => void;
-}> = ({ user, nestedLevel, selection, index, setSelection, navigate, handleFetchButtonClick }) => {
+  supportersList: Supporters[];
+}> = ({
+  user,
+  nestedLevel,
+  selection,
+  index,
+  setSelection,
+  navigate,
+  handleFetchButtonClick,
+  supportersList,
+}) => {
   const newNestedLevel = nestedLevel + 1;
   return (
     <>
@@ -135,8 +148,15 @@ const RecursiveListItem: React.FC<{
                     if (selection.some((s) => s === user.name)) {
                       setSelection(selection.filter((s) => s !== user.name));
                     } else {
-                      handleFetchButtonClick(user.name);
-                    };
+                      setSelection([...selection, user.name]);
+                      if (
+                        !supportersList.some(
+                          (s) => s.supportedLeaderName === user.name
+                        )
+                      ) {
+                        handleFetchButtonClick(user.name);
+                      }
+                    }
                   }}
                 >
                   {user.score === 1 ? (
@@ -191,6 +211,7 @@ const RecursiveListItem: React.FC<{
             setSelection={setSelection}
             navigate={navigate}
             handleFetchButtonClick={handleFetchButtonClick}
+            supportersList={supportersList}
           />
         ))}
     </>
