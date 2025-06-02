@@ -11,6 +11,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import React, { useState } from "react";
 import { searchUsersByName } from "./associatesApi";
 import { useNavigate } from "react-router";
+import { mainTheme } from "../../App";
 
 interface SearchBarProps {
   associate: string;
@@ -56,8 +57,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
         width="100%"
       >
         <Button
-          variant="outlined"
-          color="primary"
           onClick={() => {
             setInputValue("");
             setOptions([]);
@@ -66,15 +65,18 @@ const SearchBar: React.FC<SearchBarProps> = ({
               if (inputRef.current) inputRef.current.focus();
             }, 0);
           }}
+          color="primary"
           style={{
             height: 40,
             minWidth: 40,
             paddingRight: 8,
             paddingLeft: 8,
             marginRight: 8,
+            background: mainTheme.palette.secondary.main,
+            color: mainTheme.palette.primary.main,
           }}
         >
-          <SearchIcon color="action" style={{ position: "absolute" }} />
+          <SearchIcon style={{position: "absolute", right: 6}}/>
         </Button>
         <Typography variant="h6">{associate}</Typography>
       </Box>
@@ -86,14 +88,26 @@ const SearchBar: React.FC<SearchBarProps> = ({
       fullWidth
       options={options}
       value={inputValue}
+      style={{
+        background: mainTheme.palette.secondary.main,
+        color: mainTheme.palette.primary.main,
+
+        borderRadius: 4,
+      }}
+      sx={{
+        "& .MuiOutlinedInput-root": {
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: "transparent",
+          },
+        },
+      }}
       onInputChange={(_, newValue) => handleInputValueChange(newValue)}
       onChange={(event: any, newValue: string | null) => {
         if (newValue) {
           getSearchedUser(newValue);
           setSearchActive(false);
-            console.log("Navigating to associate:", navigate);
-            navigate(`/associates/${newValue.replaceAll(" ", "_")}`);
-
+          console.log("Navigating to associate:", navigate);
+          navigate(`/associates/${newValue.replaceAll(" ", "_")}`);
         }
       }}
       onBlur={() => {
@@ -120,7 +134,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
             ...params.InputProps,
             startAdornment: (
               <InputAdornment
-                style={{ paddingLeft: 4 }}
+                style={{ paddingLeft: 4, color:  mainTheme.palette.primary.main,
+ }}
                 onClick={() => {
                   if (inputRef.current) {
                     inputRef.current.value = "";
@@ -129,7 +144,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 }}
                 position="start"
               >
-                <SearchIcon color="action" />
+                <SearchIcon style={{cursor: "pointer"}} />
               </InputAdornment>
             ),
             endAdornment: (
