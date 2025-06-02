@@ -10,10 +10,9 @@ import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrow
 import { useNavigate } from "react-router-dom";
 
 import { mainTheme } from "../../App";
-import { KeyboardDoubleArrowRight } from "@mui/icons-material";
 import FlagIcon from "@mui/icons-material/Flag";
 import CloseIcon from "@mui/icons-material/Close";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../store";
 import {
   fetchLeaders,
@@ -28,9 +27,8 @@ const LeadersPage = () => {
   const [selection, setSelection] = React.useState<string[]>([]);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { leaders, loading, error, supportersList } = useSelector(
-    (state: RootState) => state.leaders
-  );
+  const { leaders, loading, supportersLoading, error, supportersList } =
+    useSelector((state: RootState) => state.leaders);
 
   useEffect(() => {
     dispatch(fetchLeaders());
@@ -75,6 +73,7 @@ const LeadersPage = () => {
           navigate={navigate}
           handleFetchButtonClick={handleFetchButtonClick}
           supportersList={supportersList}
+          supportersLoading={supportersLoading}
         />
       ))}
     </List>
@@ -90,6 +89,7 @@ const RecursiveListItem: React.FC<{
   navigate: ReturnType<typeof useNavigate>;
   handleFetchButtonClick: (name: string) => void;
   supportersList: Supporters[];
+  supportersLoading: string;
 }> = ({
   user,
   nestedLevel,
@@ -99,6 +99,7 @@ const RecursiveListItem: React.FC<{
   navigate,
   handleFetchButtonClick,
   supportersList,
+  supportersLoading,
 }) => {
   const newNestedLevel = nestedLevel + 1;
   return (
@@ -143,7 +144,11 @@ const RecursiveListItem: React.FC<{
                     minWidth: 0,
                     marginLeft: 8 * nestedLevel,
                   }}
+                  sx={{".MuiButton-loadingIndicator": {
+                    color: mainTheme.palette.primary.main
+                  }}}
                   disabled={user.score === 1}
+                  loading={user.name === supportersLoading}
                   onClick={() => {
                     if (selection.some((s) => s === user.name)) {
                       setSelection(selection.filter((s) => s !== user.name));
@@ -159,7 +164,9 @@ const RecursiveListItem: React.FC<{
                     }
                   }}
                 >
-                  {user.score === 1 ? (
+                  {user.name === supportersLoading ? (
+                    <div style={{width: 24, height: 24}}></div>
+                  ) : user.score === 1 ? (
                     <CloseIcon />
                   ) : selection.some((s) => s === user.name) ? (
                     <KeyboardDoubleArrowDownIcon
@@ -212,6 +219,7 @@ const RecursiveListItem: React.FC<{
             navigate={navigate}
             handleFetchButtonClick={handleFetchButtonClick}
             supportersList={supportersList}
+            supportersLoading={supportersLoading}
           />
         ))}
     </>

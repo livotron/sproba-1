@@ -14,6 +14,7 @@ export interface Supporters {
 }
 
 interface LeaderSliceState {
+  supportersLoading: string
   loading: boolean;
   leaders: Leader[];
   supportersList: Supporters[];
@@ -21,6 +22,7 @@ interface LeaderSliceState {
 }
 
 const initialState: LeaderSliceState = {
+  supportersLoading: "",
   loading: false,
   leaders: [],
   supportersList: [],
@@ -47,17 +49,17 @@ const leadersSlice = createSlice({
     setLeaders(state, action: PayloadAction<Leader[]>) {
       state.leaders = action.payload;
     },
-    fetchSupportersStart(state) {
-      state.loading = true;
+    fetchSupportersStart(state, action: PayloadAction<string>) {
+      state.supportersLoading = action.payload;
       state.error = undefined;
     },
     fetchSupportersSuccess(state, action: PayloadAction<Supporters[]>) {
-      state.loading = false;
+      state.supportersLoading = "";
       state.supportersList = action.payload;
       state.error = undefined;
     },
     fetchSupportersFailure(state, action: PayloadAction<string>) {
-      state.loading = false;
+      state.supportersLoading = "";
       state.error = action.payload;
     },
   },
@@ -82,7 +84,7 @@ export const fetchSupportersByLeader =
   (leaderName: string): AppThunk =>
   async (dispatch, getState) => {
     try {
-      dispatch(fetchSupportersStart());
+      dispatch(fetchSupportersStart(leaderName));
       // Simulate API delay
 
       // Dummy data
