@@ -13,6 +13,7 @@ import LeadersPage from "./features/leaders/leadersPage";
 import { Provider } from "react-redux";
 import store from "./store";
 import { getContrastYIQ } from "./utils/colors";
+import NewcomersPage from "./features/newcomers/NewcomersPage";
 
 export const userColor = "#FFA500";
 
@@ -27,7 +28,7 @@ export const mainTheme = createTheme({
   },
 });
 
-const tabRoutes = ["/", "/associates"];
+const tabRoutes = ["/", "/associates", "/newcomers"];
 
 function MainContent() {
   const location = useLocation();
@@ -96,6 +97,7 @@ function MainContent() {
           >
             <Tab label="ЛІДЕРИ" />
             <Tab label="СОРАТНИКИ" />
+            <Tab label="НЕОФІТИ" />
           </Tabs>
         </Toolbar>
       </AppBar>
@@ -103,6 +105,7 @@ function MainContent() {
         <Route path="/" element={<LeadersPage />} />
         <Route path="/associates" element={<AssociatesPage />} />
         <Route path="/associates/:associate" element={<AssociatesPage />} />
+                <Route path="/newcomers" element={<NewcomersPage />} />
       </Routes>
     </>
   );
