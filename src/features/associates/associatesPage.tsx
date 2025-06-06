@@ -11,11 +11,13 @@ import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArro
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import { mainTheme } from "../../App";
+import { useSelector } from "react-redux";
+import { RootState } from "../../rootReducer";
 
 const AssociatesPage = () => {
-  const params = useParams<{ associate?: string }>();
   const location = useLocation();
   const [associate, setAssociate] = React.useState("");
+  const { leaders } = useSelector((state: RootState) => state.leaders)
 
   // Set associate according to location.pathname
   useEffect(() => {
@@ -23,10 +25,10 @@ const AssociatesPage = () => {
     if (match && match[1]) {
       const decodedURI =decodeURIComponent(match[1]);
       setAssociate(decodedURI.replaceAll("_", " "));
-    } else {
-      setAssociate("");
+    } else if (leaders.length){
+      setAssociate(leaders[0].name);
     }
-  }, [location.pathname]);
+  }, [location.pathname, leaders]);
 
   const getSearchedUser = (name: string | null) => {
     setAssociate(name || "");

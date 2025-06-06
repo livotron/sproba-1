@@ -30,10 +30,6 @@ const LeadersPage = () => {
   const { leaders, loading, supportersLoading, error, supportersList } =
     useSelector((state: RootState) => state.leaders);
 
-  useEffect(() => {
-    dispatch(fetchLeaders());
-  }, [dispatch]);
-
   const handleFetchButtonClick = (name: string) => {
     dispatch(fetchSupportersByLeader(name));
   };
@@ -53,7 +49,6 @@ const LeadersPage = () => {
       } else return leader;
     };
     const newLeaders = leaders.map((leader) => addSupporters(leader));
-    console.log("newLeaders", newLeaders);
     return newLeaders;
   }, [leaders, supportersList]);
 

@@ -106,7 +106,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
         if (newValue) {
           getSearchedUser(newValue);
           setSearchActive(false);
-          console.log("Navigating to associate:", navigate);
           navigate(`/associates/${newValue.replaceAll(" ", "_")}`);
         }
       }}

@@ -1,6 +1,6 @@
 import { AppBar, Toolbar, Tabs, Tab } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -11,9 +11,10 @@ import {
 import AssociatesPage from "./features/associates/associatesPage";
 import LeadersPage from "./features/leaders/leadersPage";
 import { Provider } from "react-redux";
-import store from "./store";
+import store, { useAppDispatch } from "./store";
 import { getContrastYIQ } from "./utils/colors";
 import NewcomersPage from "./features/newcomers/NewcomersPage";
+import { fetchLeaders } from "./features/leaders/leadersSlice";
 
 export const userColor = "#FFA500";
 
@@ -35,6 +36,11 @@ function MainContent() {
   const navigate = useNavigate();
   const [tab, setTab] = React.useState(0);
   const [tabModified, setTabModified] = React.useState(false);
+  const dispatch = useAppDispatch();
+
+    useEffect(() => {
+    dispatch(fetchLeaders());
+  }, [dispatch]);
 
   const handleTabChange = (_: any, newValue: number) => {
     setTabModified(true);
@@ -44,7 +50,6 @@ function MainContent() {
 
   let initialTab = 0;
  const shortLocation = location.pathname.match("^/[^/]+");
-    console.log("shortLocation", shortLocation);
     const tabIndex = tabRoutes.indexOf(
       (shortLocation && shortLocation[0]) || "/"
     );
@@ -54,7 +59,6 @@ function MainContent() {
 
   React.useEffect(() => {
     const shortLocation = location.pathname.match("^/[^/]+");
-    console.log("shortLocation", shortLocation);
     const tabIndex = tabRoutes.indexOf(
       (shortLocation && shortLocation[0]) || "/"
     );

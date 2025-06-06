@@ -6,7 +6,6 @@ import { Typography } from "@mui/material";
 interface LetterBubbleProps {
   text: string;
 }
-// console.log("darkenColor", darkenColor(mainTheme.palette.secondary.main, 10))
 const LetterBubble: React.FC<LetterBubbleProps> = ({ text }) => (
   <span
     style={{
