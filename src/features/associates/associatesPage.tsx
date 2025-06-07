@@ -13,26 +13,38 @@ import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrow
 import { mainTheme } from "../../App";
 import { useSelector } from "react-redux";
 import { RootState } from "../../rootReducer";
+import { useAppDispatch } from "../../store";
+import { fetchAssociate } from "./associatesSlice";
 
 const AssociatesPage = () => {
   const location = useLocation();
-  const [associate, setAssociate] = React.useState("");
-  const { leaders } = useSelector((state: RootState) => state.leaders)
+  const [associateName, setAssociateName] = React.useState("");
+  const { leaders } = useSelector((state: RootState) => state.leaders);
+  const { associate, loading } = useSelector(
+    (state: RootState) => state.associates
+  );
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   // Set associate according to location.pathname
   useEffect(() => {
     const match = location.pathname.match(/^\/associates\/(.+)$/);
     if (match && match[1]) {
-      const decodedURI =decodeURIComponent(match[1]);
-      setAssociate(decodedURI.replaceAll("_", " "));
-    } else if (leaders.length){
-      setAssociate(leaders[0].name);
+      const decodedURI = decodeURIComponent(match[1]);
+      const newAssociateName = decodedURI.replaceAll("_", " ");
+      setAssociateName(newAssociateName);
+    } else if (leaders.length) {
+      setAssociateName(leaders[0].name);
     }
-  }, [location.pathname, leaders]);
+  }, [location.pathname, leaders, dispatch, navigate]);
 
-  const getSearchedUser = (name: string | null) => {
-    setAssociate(name || "");
-  };
+  useEffect(() => {
+    associateName && dispatch(fetchAssociate(associateName));
+  }, [dispatch, associateName, navigate]);
+
+  if (!associateName) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -44,7 +56,9 @@ const AssociatesPage = () => {
           width: "100%",
         }}
       >
-        <SearchBar associate={associate} getSearchedUser={getSearchedUser} />
+        <SearchBar
+          associate={associateName}
+        />
       </div>
       <Typography variant="h6">ДОЄДНАВСЯ:</Typography>
       <Box display="flex" alignItems="center">
@@ -60,7 +74,7 @@ const AssociatesPage = () => {
         >
           <CakeIcon />
         </Button>
-        <Typography variant="h6">02.04.2025</Typography>
+        <Typography variant="h6">{associate.registeredDate}</Typography>
       </Box>
       <Typography variant="h6">ПІДТРИМАВ:</Typography>
       <Box display="flex" alignItems="center">
@@ -78,7 +92,7 @@ const AssociatesPage = () => {
             <PanToolIcon fontSize="medium" />
           </span>
         </Button>
-        <Typography>СЕМЕН СЕМЕНОВИЧ</Typography>
+        <Typography>{associate.supports}</Typography>
       </Box>
       <Typography variant="h6">ЗАСВІДЧИВ:</Typography>
       <Box display="flex" alignItems="center" marginBottom={1}>
@@ -93,7 +107,7 @@ const AssociatesPage = () => {
         >
           <KeyboardDoubleArrowUpIcon />
         </Button>
-        <Typography>VLAD СЕМЕНОВИЧ</Typography>
+        <Typography>{associate.connections[0]?.name}</Typography>
       </Box>
       <Box display="flex" alignItems="center" marginBottom={1}>
         <Button
@@ -107,7 +121,7 @@ const AssociatesPage = () => {
         >
           <KeyboardDoubleArrowRightIcon />
         </Button>
-        <Typography>GOSHA СЕМЕНОВИЧ</Typography>
+        <Typography>{associate.connections[1]?.name}</Typography>
       </Box>
       <Box display="flex" alignItems="center" marginBottom={1}>
         <Button
@@ -121,7 +135,7 @@ const AssociatesPage = () => {
         >
           <KeyboardDoubleArrowDownIcon />
         </Button>
-        <Typography>VIRTOR СЕМЕНОВИЧ</Typography>
+        <Typography>{associate.connections[2]?.name}</Typography>
       </Box>
       <Box display="flex" alignItems="center" marginBottom={1}>
         <Button
@@ -135,7 +149,7 @@ const AssociatesPage = () => {
         >
           <KeyboardDoubleArrowLeftIcon />
         </Button>
-        <Typography>OLEG СЕМЕНОВИЧ</Typography>
+        <Typography>{associate.connections[3]?.name}</Typography>
       </Box>
 
       <Box
@@ -144,19 +158,64 @@ const AssociatesPage = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <LetterBubble text="AB" />
-        <MutualConnection />
+        {associate.connections[3] ? (
+          <>
+            <LetterBubble
+              associateName={associate.connections[3].name}
+              score={associate.connections[3].score}
+            />
+            <MutualConnection
+              style={{ opacity: associate.connections[3].mutual ? 1 : 0 }}
+            />
+          </>
+        ) : (
+          <div style={{ width: 80, height: 80 }}></div>
+        )}
         <Box display="flex" flexDirection="column" alignItems="center">
-          <LetterBubble text="K" />
-          <MutualConnection />
-          <LetterBubble text="KR" />
-          <MutualConnection style={{ opacity: 0 }} />
-
-          <LetterBubble text="PP" />
+          {associate.connections[0] ? (
+            <>
+              <LetterBubble
+                associateName={associate.connections[0].name}
+                score={associate.connections[0].score}
+              />
+              <MutualConnection
+                style={{ opacity: associate.connections[0].mutual ? 1 : 0 }}
+              />
+            </>
+          ) : (
+            <div style={{ width: 80, height: 80 }}></div>
+          )}
+          <LetterBubble
+            associateName={associate.name}
+            score={associate.score}
+          />
+          {associate.connections[2] ? (
+            <>
+              <MutualConnection
+                style={{ opacity: associate.connections[2].mutual ? 1 : 0 }}
+              />
+              <LetterBubble
+                associateName={associate.connections[2].name}
+                score={associate.connections[2].score}
+              />
+            </>
+          ) : (
+            <div style={{ width: 80, height: 80 }}></div>
+          )}
         </Box>
-        <MutualConnection />
-
-        <LetterBubble text="Q" />
+        {associate.connections[1] ? (
+          <>
+            <MutualConnection
+              style={{ opacity: associate.connections[1].mutual ? 1 : 0 }}
+            />
+            <LetterBubble
+              associateName={associate.connections[1].name}
+              score={associate.connections[1].score}
+            />
+          </>
+        ) : (
+          <div style={{ width: 80, height: 80 }}></div>
+        )}
       </Box>
     </>
   );

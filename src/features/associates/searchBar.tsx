@@ -15,12 +15,10 @@ import { mainTheme } from "../../App";
 
 interface SearchBarProps {
   associate: string;
-  getSearchedUser: (value: string | null) => void;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
   associate,
-  getSearchedUser,
 }) => {
   const [inputValue, setInputValue] = useState(associate);
   const [loading, setLoading] = useState(false);
@@ -104,7 +102,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
       onInputChange={(_, newValue) => handleInputValueChange(newValue)}
       onChange={(event: any, newValue: string | null) => {
         if (newValue) {
-          getSearchedUser(newValue);
           setSearchActive(false);
           navigate(`/associates/${newValue.replaceAll(" ", "_")}`);
         }
