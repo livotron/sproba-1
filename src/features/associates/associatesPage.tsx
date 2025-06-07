@@ -1,7 +1,7 @@
 import { Typography, Box, Button } from "@mui/material";
 import React, { useEffect } from "react";
-import SearchBar from "./searchBar";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import SearchBar from "./SearchBar";
+import { useNavigate, useLocation } from "react-router-dom";
 import LetterBubble from "./LetterBubble";
 import MutualConnection from "./MutualConnection";
 import CakeIcon from "@mui/icons-material/Cake";
@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../rootReducer";
 import { useAppDispatch } from "../../store";
 import { fetchAssociate } from "./associatesSlice";
+import Modify from "./Modify";
 
 const AssociatesPage = () => {
   const location = useLocation();
@@ -25,10 +26,14 @@ const AssociatesPage = () => {
   );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [bubblePressCount, setBubblePressCount] = React.useState(0);
+  const bubblePressTimeout = React.useRef<NodeJS.Timeout | null>(null);
+  const [modifyEnabled, setModifyEnabled] = React.useState(false);
 
   // Set associate according to location.pathname
   useEffect(() => {
     const match = location.pathname.match(/^\/associates\/(.+)$/);
+    setModifyEnabled(false);
     if (match && match[1]) {
       const decodedURI = decodeURIComponent(match[1]);
       const newAssociateName = decodedURI.replaceAll("_", " ");
@@ -41,6 +46,27 @@ const AssociatesPage = () => {
   useEffect(() => {
     associateName && dispatch(fetchAssociate(associateName));
   }, [dispatch, associateName, navigate]);
+
+  const handleCentralBubbleClick = () => {
+    setBubblePressCount((prev) => {
+      if (prev === 4) {
+        onFivePresses();
+        return 0;
+      } else {
+        if (bubblePressTimeout.current)
+          clearTimeout(bubblePressTimeout.current);
+        bubblePressTimeout.current = setTimeout(
+          () => setBubblePressCount(0),
+          1500
+        );
+        return prev + 1;
+      }
+    });
+  };
+
+  const onFivePresses = () => {
+    setModifyEnabled(true)
+  };
 
   if (!associateName) {
     return <div>Loading...</div>;
@@ -56,9 +82,7 @@ const AssociatesPage = () => {
           width: "100%",
         }}
       >
-        <SearchBar
-          associate={associateName}
-        />
+        <SearchBar associate={associateName} />
       </div>
       <Typography variant="h6">ДОЄДНАВСЯ:</Typography>
       <Box display="flex" alignItems="center">
@@ -92,7 +116,7 @@ const AssociatesPage = () => {
             <PanToolIcon fontSize="medium" />
           </span>
         </Button>
-        <Typography>{associate.supports}</Typography>
+        <Typography variant="h6">{associate.supports}</Typography>
       </Box>
       <Typography variant="h6">ЗАСВІДЧИВ:</Typography>
       <Box display="flex" alignItems="center" marginBottom={1}>
@@ -107,7 +131,7 @@ const AssociatesPage = () => {
         >
           <KeyboardDoubleArrowUpIcon />
         </Button>
-        <Typography>{associate.connections[0]?.name}</Typography>
+        <Typography variant="h6">{associate.connections[0]?.name}</Typography>
       </Box>
       <Box display="flex" alignItems="center" marginBottom={1}>
         <Button
@@ -121,7 +145,7 @@ const AssociatesPage = () => {
         >
           <KeyboardDoubleArrowRightIcon />
         </Button>
-        <Typography>{associate.connections[1]?.name}</Typography>
+        <Typography variant="h6">{associate.connections[1]?.name}</Typography>
       </Box>
       <Box display="flex" alignItems="center" marginBottom={1}>
         <Button
@@ -135,7 +159,7 @@ const AssociatesPage = () => {
         >
           <KeyboardDoubleArrowDownIcon />
         </Button>
-        <Typography>{associate.connections[2]?.name}</Typography>
+        <Typography variant="h6">{associate.connections[2]?.name}</Typography>
       </Box>
       <Box display="flex" alignItems="center" marginBottom={1}>
         <Button
@@ -149,7 +173,7 @@ const AssociatesPage = () => {
         >
           <KeyboardDoubleArrowLeftIcon />
         </Button>
-        <Typography>{associate.connections[3]?.name}</Typography>
+        <Typography variant="h6">{associate.connections[3]?.name}</Typography>
       </Box>
 
       <Box
@@ -188,6 +212,8 @@ const AssociatesPage = () => {
           <LetterBubble
             associateName={associate.name}
             score={associate.score}
+            isCentral
+            onClick={handleCentralBubbleClick}
           />
           {associate.connections[2] ? (
             <>
@@ -217,6 +243,7 @@ const AssociatesPage = () => {
           <div style={{ width: 80, height: 80 }}></div>
         )}
       </Box>
+      {modifyEnabled && <Modify associate={associate} />}
     </>
   );
 };

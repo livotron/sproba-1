@@ -1,6 +1,6 @@
 import React from "react";
 import { darkenColor, lightenColorLinear } from "../../utils/colors";
-import { mainTheme, userColor } from "../../App";
+import { mainTheme } from "../../App";
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router";
 
@@ -17,16 +17,23 @@ const getInitials = function (string: string) {
 interface LetterBubbleProps {
   associateName: string;
   score: number;
+  isCentral?: boolean;
+  onClick?: () => void;
 }
 const LetterBubble: React.FC<LetterBubbleProps> = ({
   associateName,
   score,
+  isCentral,
+  onClick
 }) => {
   const navigate = useNavigate();
 
   return (
     <span
       onClick={() => {
+        if(isCentral && onClick) {
+          onClick()
+        } else
         navigate(`/associates/${associateName.replaceAll(" ", "_")}`);
       }}
       style={{
