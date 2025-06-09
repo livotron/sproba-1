@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { Associate } from "./associatesSlice";
 import CertifyBlock from "./CertifyBlock";
+import SimpleAutocomplete from "./SimpleAutocomplete";
 
 interface ModityProps {
   associate: Associate;
@@ -21,14 +22,15 @@ export interface AssociateModified {
     ConnectionModified | null,
     ConnectionModified | null
   ];
+  modifiedIndex: number;
 }
 
 const Modify: React.FC<ModityProps> = ({ associate }) => {
-  const [activeSwitchIndex, setActiveSwitchIndex] = useState(-1);
   const [associateModified, setAssociateModified] = useState<AssociateModified>(
     {
       name: associate.name,
       supports: associate.supports,
+      modifiedIndex: -1,
       connections: [
         associate.connections[0]
           ? { name: associate.connections[0].name, password: "" }
@@ -46,19 +48,23 @@ const Modify: React.FC<ModityProps> = ({ associate }) => {
     }
   );
 
+  const setActiveSwitchIndex = (index: number) => {
+    setAssociateModified((prev)=>({ ...prev, modifiedIndex: index }));
+  };
+
   const updateConnectionOnIndex = (
     newConnection: ConnectionModified | null,
     index: number
   ) => {
-    setAssociateModified({
-      ...associateModified,
+    setAssociateModified((prev) => ({
+      ...prev,
       connections: [
         index === 0 ? newConnection : associateModified.connections[0],
         index === 1 ? newConnection : associateModified.connections[1],
         index === 2 ? newConnection : associateModified.connections[2],
         index === 3 ? newConnection : associateModified.connections[3],
       ],
-    });
+    }));
   };
   console.log(associateModified);
   return (
@@ -72,10 +78,10 @@ const Modify: React.FC<ModityProps> = ({ associate }) => {
         connection={associateModified.connections[0]}
         updateConnection={(conn) => updateConnectionOnIndex(conn, 0)}
         defaultName={associate.connections[0]?.name}
-        switchActive={activeSwitchIndex === 0}
-        switchDisabled={activeSwitchIndex !== -1 && activeSwitchIndex !== 0}
+        switchActive={associateModified.modifiedIndex === 0}
+        switchDisabled={associateModified.modifiedIndex !== -1 && associateModified.modifiedIndex !== 0}
         toggleSwitch={() =>
-          setActiveSwitchIndex(activeSwitchIndex === -1 ? 0 : -1)
+          setActiveSwitchIndex(associateModified.modifiedIndex === -1 ? 0 : -1)
         }
       />
       <CertifyBlock
@@ -83,10 +89,10 @@ const Modify: React.FC<ModityProps> = ({ associate }) => {
         connection={associateModified.connections[1]}
         updateConnection={(conn) => updateConnectionOnIndex(conn, 1)}
         defaultName={associate.connections[1]?.name}
-        switchActive={activeSwitchIndex === 1}
-        switchDisabled={activeSwitchIndex !== -1 && activeSwitchIndex !== 1}
+        switchActive={associateModified.modifiedIndex === 1}
+        switchDisabled={associateModified.modifiedIndex !== -1 && associateModified.modifiedIndex !== 1}
         toggleSwitch={() =>
-          setActiveSwitchIndex(activeSwitchIndex === -1 ? 1 : -1)
+          setActiveSwitchIndex(associateModified.modifiedIndex === -1 ? 1 : -1)
         }
       />
       <CertifyBlock
@@ -94,10 +100,10 @@ const Modify: React.FC<ModityProps> = ({ associate }) => {
         connection={associateModified.connections[2]}
         updateConnection={(conn) => updateConnectionOnIndex(conn, 2)}
         defaultName={associate.connections[2]?.name}
-        switchDisabled={activeSwitchIndex !== -1 && activeSwitchIndex !== 2}
-        switchActive={activeSwitchIndex === 2}
+        switchDisabled={associateModified.modifiedIndex !== -1 && associateModified.modifiedIndex !== 2}
+        switchActive={associateModified.modifiedIndex === 2}
         toggleSwitch={() =>
-          setActiveSwitchIndex(activeSwitchIndex === -1 ? 2 : -1)
+          setActiveSwitchIndex(associateModified.modifiedIndex === -1 ? 2 : -1)
         }
       />
       <CertifyBlock
@@ -105,12 +111,32 @@ const Modify: React.FC<ModityProps> = ({ associate }) => {
         connection={associateModified.connections[3]}
         updateConnection={(conn) => updateConnectionOnIndex(conn, 3)}
         defaultName={associate.connections[3]?.name}
-        switchActive={activeSwitchIndex === 3}
-        switchDisabled={activeSwitchIndex !== -1 && activeSwitchIndex !== 3}
+        switchActive={associateModified.modifiedIndex === 3}
+        switchDisabled={associateModified.modifiedIndex !== -1 && associateModified.modifiedIndex !== 3}
         toggleSwitch={() =>
-          setActiveSwitchIndex(activeSwitchIndex === -1 ? 3 : -1)
+          setActiveSwitchIndex(associateModified.modifiedIndex === -1 ? 3 : -1)
         }
       />
+      <Typography mb={2} variant="h5">
+        Підтримав
+      </Typography>
+      <SimpleAutocomplete
+        presetValue={associateModified.supports}
+        getSearchedUser={(u) => {
+          setAssociateModified({
+            ...associateModified,
+            supports: u,
+          });
+        }}
+      />
+      <Button
+        style={{ marginTop: 16, marginBottom: 16 }}
+        variant="contained"
+        color="secondary"
+        fullWidth
+      >
+        Зберегти
+      </Button>
     </Box>
   );
 };

@@ -4,10 +4,11 @@ import { searchUsersByName } from "./associatesApi";
 
 interface Props {
   getSearchedUser: (user: string) => void;
+  presetValue?: string
 }
-const SimpleAutocomplete = ({ getSearchedUser }: Props) => {
+const SimpleAutocomplete = ({ getSearchedUser, presetValue }: Props) => {
   const [options, setOptions] = useState<string[]>([]);
-  const [value, setValue] = useState<string | null>(null);
+  const [value, setValue] = useState<string | null>(presetValue || null);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +25,6 @@ const SimpleAutocomplete = ({ getSearchedUser }: Props) => {
         (res): void => {
           setOptions(res);
           setLoading(false);
-          console.log(res);
         }
       );
     }
