@@ -38,7 +38,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       setLoading(true);
       searchUsersByName(inputValueCapitalized.substring(0, 3)).then(
         (res): void => {
-          setOptions(res.map((user) => user));
+          setOptions(res);
           setLoading(false);
         }
       );
