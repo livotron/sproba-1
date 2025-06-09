@@ -3,7 +3,6 @@ import {
   Box,
   FormControl,
   FormControlLabel,
-  FormLabel,
   IconButton,
   InputAdornment,
   InputLabel,
@@ -67,6 +66,7 @@ const CertifyBlock: React.FC<CertifyBlockProps> = ({
       <FormControlLabel
         control={
           <Switch
+          color="secondary"
             checked={switchActive}
             disabled={switchDisabled}
             onChange={(e) => handleActivation(e.target.checked)}
@@ -79,6 +79,7 @@ const CertifyBlock: React.FC<CertifyBlockProps> = ({
           {!defaultName && (
             <FormControl>
               <RadioGroup
+              color="secondary"
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
@@ -87,12 +88,12 @@ const CertifyBlock: React.FC<CertifyBlockProps> = ({
               >
                 <FormControlLabel
                   value="EXISTING"
-                  control={<Radio />}
+                  control={<Radio color="secondary"/>}
                   label="Існуючий соратник"
                 />
                 <FormControlLabel
                   value="NEW"
-                  control={<Radio />}
+                  control={<Radio color="secondary"/>}
                   label="Новий соратник"
                 />
               </RadioGroup>
@@ -108,9 +109,10 @@ const CertifyBlock: React.FC<CertifyBlockProps> = ({
             />
           ) : (
             <TextField
-              label="Name"
+              label="Ім'я"
               disabled={!!defaultName}
               variant="outlined"
+              size="small"
               fullWidth
               value={connection.name}
               onChange={(e) =>
@@ -121,14 +123,15 @@ const CertifyBlock: React.FC<CertifyBlockProps> = ({
               }
             />
           )}
-          <FormControl sx={{ mt: 2, width: "100%" }} variant="outlined">
+          <FormControl sx={{ mt: 2, mb: 2, width: "100%" }} variant="outlined" size="small">
             <InputLabel htmlFor="outlined-adornment-password">
-              Password
+              Пароль
             </InputLabel>
             <OutlinedInput
               id={`password-${title}`}
               type={showPassword ? "text" : "password"}
               value={connection.password}
+              size="small"
               fullWidth
               onChange={(e) =>
                 updateConnection({

@@ -39,6 +39,7 @@ const SimpleAutocomplete = ({ getSearchedUser }: Props) => {
   return (
     <Autocomplete
       value={value}
+      fullWidth
       size="small"
       title="ІМ'Я КОРИСТУВАЧА"
       onChange={(event: any, newValue: string | null) => {
@@ -47,11 +48,11 @@ const SimpleAutocomplete = ({ getSearchedUser }: Props) => {
       noOptionsText={
         inputValue
           ? loading
-            ? "ЗАГРУЗКА"
+            ? "Здійснюється пошук..."
             : inputValue.length < 3
-            ? "ПРОДОВЖУЙТЕ ВВІД"
-            : "НЕ ЗНАЙДЕНО"
-          : "ВВЕДІТЬ ІМ'Я"
+            ? "Продовжуйте вводити..."
+            : "Не знайдено співпадінь"
+          : "Ведіть ім'я"
       }
       inputValue={inputValue}
       onInputChange={(event, newInputValue) => {
@@ -59,8 +60,7 @@ const SimpleAutocomplete = ({ getSearchedUser }: Props) => {
       }}
       id="controllable-states-demo"
       options={options}
-      sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="ПОШУК ПО ІМЕНІ" />}
+      renderInput={(params) => <TextField {...params} label="Ім'я" />}
     />
   );
 };
