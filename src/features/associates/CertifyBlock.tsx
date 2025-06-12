@@ -13,7 +13,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { ConnectionModified } from "./Modify";
+import { ConnectionModified } from "./associatesSlice";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import SimpleAutocomplete from "./SimpleAutocomplete";
 

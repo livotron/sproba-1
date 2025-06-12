@@ -1,31 +1,17 @@
 import React, { useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
-import { Associate } from "./associatesSlice";
+import { Associate, AssociateModified, ConnectionModified, modifyAssociate } from "./associatesSlice";
 import CertifyBlock from "./CertifyBlock";
 import SimpleAutocomplete from "./SimpleAutocomplete";
+import { useAppDispatch } from "../../store";
 
 interface ModityProps {
   associate: Associate;
+  setModifyEnabled: (b: boolean) => void;
 }
 
-export interface ConnectionModified {
-  name: string;
-  password: string;
-}
 
-export interface AssociateModified {
-  name: string;
-  supports: string;
-  connections: [
-    ConnectionModified | null,
-    ConnectionModified | null,
-    ConnectionModified | null,
-    ConnectionModified | null
-  ];
-  modifiedIndex: number;
-}
-
-const Modify: React.FC<ModityProps> = ({ associate }) => {
+const Modify: React.FC<ModityProps> = ({ associate, setModifyEnabled }) => {
   const [associateModified, setAssociateModified] = useState<AssociateModified>(
     {
       name: associate.name,
@@ -47,9 +33,9 @@ const Modify: React.FC<ModityProps> = ({ associate }) => {
       ],
     }
   );
-
+  const dispatch = useAppDispatch()
   const setActiveSwitchIndex = (index: number) => {
-    setAssociateModified((prev)=>({ ...prev, modifiedIndex: index }));
+    setAssociateModified((prev) => ({ ...prev, modifiedIndex: index }));
   };
 
   const updateConnectionOnIndex = (
@@ -74,51 +60,63 @@ const Modify: React.FC<ModityProps> = ({ associate }) => {
         За один запит можна активувати/деактивувати не більше одного засвідчення
       </Typography>
       <CertifyBlock
-        title="Верх"
+        title="Верхнє засвідчення"
         connection={associateModified.connections[0]}
         updateConnection={(conn) => updateConnectionOnIndex(conn, 0)}
         defaultName={associate.connections[0]?.name}
         switchActive={associateModified.modifiedIndex === 0}
-        switchDisabled={associateModified.modifiedIndex !== -1 && associateModified.modifiedIndex !== 0}
+        switchDisabled={
+          associateModified.modifiedIndex !== -1 &&
+          associateModified.modifiedIndex !== 0
+        }
         toggleSwitch={() =>
           setActiveSwitchIndex(associateModified.modifiedIndex === -1 ? 0 : -1)
         }
       />
       <CertifyBlock
-        title="Право"
+        title="Праве засвідчення"
         connection={associateModified.connections[1]}
         updateConnection={(conn) => updateConnectionOnIndex(conn, 1)}
         defaultName={associate.connections[1]?.name}
         switchActive={associateModified.modifiedIndex === 1}
-        switchDisabled={associateModified.modifiedIndex !== -1 && associateModified.modifiedIndex !== 1}
+        switchDisabled={
+          associateModified.modifiedIndex !== -1 &&
+          associateModified.modifiedIndex !== 1
+        }
         toggleSwitch={() =>
           setActiveSwitchIndex(associateModified.modifiedIndex === -1 ? 1 : -1)
         }
       />
       <CertifyBlock
-        title="Низ"
+        title="Нижнє засвідчення"
         connection={associateModified.connections[2]}
         updateConnection={(conn) => updateConnectionOnIndex(conn, 2)}
         defaultName={associate.connections[2]?.name}
-        switchDisabled={associateModified.modifiedIndex !== -1 && associateModified.modifiedIndex !== 2}
+        switchDisabled={
+          associateModified.modifiedIndex !== -1 &&
+          associateModified.modifiedIndex !== 2
+        }
         switchActive={associateModified.modifiedIndex === 2}
         toggleSwitch={() =>
           setActiveSwitchIndex(associateModified.modifiedIndex === -1 ? 2 : -1)
         }
       />
       <CertifyBlock
-        title="Ліво"
+        title="Ліве засвідчення"
         connection={associateModified.connections[3]}
         updateConnection={(conn) => updateConnectionOnIndex(conn, 3)}
         defaultName={associate.connections[3]?.name}
         switchActive={associateModified.modifiedIndex === 3}
-        switchDisabled={associateModified.modifiedIndex !== -1 && associateModified.modifiedIndex !== 3}
+        switchDisabled={
+          associateModified.modifiedIndex !== -1 &&
+          associateModified.modifiedIndex !== 3
+        }
         toggleSwitch={() =>
           setActiveSwitchIndex(associateModified.modifiedIndex === -1 ? 3 : -1)
         }
       />
       <Typography mb={2} variant="h5">
-        Підтримав
+        Підтримка
       </Typography>
       <SimpleAutocomplete
         presetValue={associateModified.supports}
@@ -129,14 +127,28 @@ const Modify: React.FC<ModityProps> = ({ associate }) => {
           });
         }}
       />
-      <Button
-        style={{ marginTop: 16, marginBottom: 16 }}
-        variant="contained"
-        color="secondary"
-        fullWidth
-      >
-        Зберегти
-      </Button>
+      <Box display="flex">
+        <Button
+          style={{ marginTop: 16, marginBottom: 16, marginRight: 8 }}
+          variant="outlined"
+          color="primary"
+          fullWidth
+          onClick={() => setModifyEnabled(false)}
+        >
+          ВІДМІНИТИ
+        </Button>
+        <Button
+          style={{ marginTop: 16, marginBottom: 16 }}
+          variant="contained"
+          color="primary"
+          fullWidth
+          onClick={() => {
+            dispatch(modifyAssociate(associateModified))
+          }}
+        >
+          Зберегти
+        </Button>
+      </Box>
     </Box>
   );
 };

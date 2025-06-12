@@ -243,7 +243,7 @@ const AssociatesPage = () => {
           <div style={{ width: 80, height: 80 }}></div>
         )}
       </Box>
-      {modifyEnabled && <Modify associate={associate} />}
+        {modifyEnabled && <Modify associate={associate} setModifyEnabled={setModifyEnabled}/>}
     </>
   );
 };

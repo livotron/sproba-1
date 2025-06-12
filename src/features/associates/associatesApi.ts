@@ -1,5 +1,5 @@
 // import axios from "axios";
-import { Associate } from "./associatesSlice";
+import { Associate, AssociateModified } from "./associatesSlice";
 
 export async function searchUsersByName(name: string) {
   // Mocked associates data with artificial delay
@@ -46,6 +46,20 @@ export async function fetchAssociateByNameCall(
         mutual: true,
           },
         ]
+      });
+    }, 500); // 500ms delay
+  });
+}
+
+
+export async function modifyAssociateCall(
+  modifiedAssociate: AssociateModified
+): Promise<any> {
+  // Mocked supporters data with artificial delay
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        sucess: true,
       });
     }, 500); // 500ms delay
   });
