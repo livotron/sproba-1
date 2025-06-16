@@ -99,7 +99,7 @@ function MainContent() {
               },
             }}
           >
-            <Tab label="ЛІДЕРИ" />
+            <Tab label="ЛІДЕР" />
             <Tab label="СОРАТНИКИ" />
             <Tab label="НЕОФІТИ" />
           </Tabs>
